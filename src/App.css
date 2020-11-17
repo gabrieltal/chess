@@ -35,6 +35,10 @@ a:hover {
   justify-content: space-between;
 }
 
+.justify-content-center {
+  justify-content: center;
+}
+
 .align-items-center {
   align-items: center;
 }
@@ -48,21 +52,24 @@ a:hover {
   margin: 0;
 }
 
+.m-2 {
+  margin: 20px;
+}
+
+.p-2 {
+  padding: 20px;
+}
+
 .vw-100 {
   width: 100vw;
 }
 
 /* Components */
 header {
-  display: flex;
-  align-items: center;
-  padding: 20px;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .board {
-  margin: 20px;
   border: 1px solid black;
 }
 

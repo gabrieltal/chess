@@ -4,7 +4,7 @@ import Game from './components/game';
 function App() {
   return (
     <div className="app">
-      <header className="d-flex justify-content-between bg-black">
+      <header className="d-flex justify-content-between bg-black p-2 align-items-center white">
         <nav>
           <a href="https://github.com/gabrieltal/chess" target="_blank" rel="nofollow">Github</a>
         </nav>

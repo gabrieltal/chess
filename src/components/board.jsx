@@ -8,7 +8,7 @@ export default class Board extends React.Component {
 
   render() {
     return (
-      <div className="board">
+      <div className="board m-2">
         <div className="row">
           {this.renderSquare(0, 7)}
           {this.renderSquare(1, 7)}
