@@ -1,7 +1,6 @@
-.square {
-  width: 50px;
-  height: 50px;
-  display: inline-block;
+/* Color */
+.white {
+  color: white;
 }
 
 .bg-black {
@@ -12,36 +11,7 @@
   background-color: white;
 }
 
-.font-md {
-  font-size: 16px;
-}
-
-
-.d-flex {
-  display: flex;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.white {
-  color: white;
-}
-
-header {
-  background-color: #282c34;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.m-0 {
-  margin: 0;
-}
-
+/* Links/Text */
 a {
   color: skyblue;
   text-decoration: none;
@@ -51,12 +21,53 @@ a:hover {
   text-decoration: underline;
 }
 
-main {
+.font-md {
+  font-size: 16px;
+}
+
+
+/* Flex */
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
   align-items: center;
+}
+
+.flex-column {
   flex-direction: column;
+}
+
+/* Utils */
+.m-0 {
+  margin: 0;
+}
+
+.vw-100 {
   width: 100vw;
+}
+
+/* Components */
+header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .board {
   margin: 20px;
+  border: 1px solid black;
+}
+
+.square {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
 }
