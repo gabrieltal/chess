@@ -8,7 +8,15 @@
 }
 
 .bg-white {
-  background-color: white;
+  backgroiund-color: white;
+}
+
+.bg-dark {
+  background-color: #F0D9B5;
+}
+
+.bg-light {
+  background-color: #B58863;
 }
 
 /* Links/Text */
