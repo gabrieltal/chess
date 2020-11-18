@@ -8,7 +8,7 @@ function App() {
         <nav>
           <a href="https://github.com/gabrieltal/chess" target="_blank" rel="noopener noreferrer">Github</a>
         </nav>
-        <h1 class="m-0">Chess</h1>
+        <h1 className="m-0">Chess</h1>
         <p className="font-md">A <a className="white" href="https://github.com/in/gvtalavera" target="_blank" rel="noopener noreferrer">Gabriel Talavera</a> production.</p>
       </header>
       <main className="d-flex flex-column align-items-center vw-100">
