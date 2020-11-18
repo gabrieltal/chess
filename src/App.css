@@ -47,12 +47,25 @@ a:hover {
   justify-content: center;
 }
 
+.justify-content-end {
+  justify-content: flex-end;
+}
+
 .align-items-center {
   align-items: center;
 }
 
 .flex-column {
   flex-direction: column;
+}
+
+/* Grid */
+.d-grid {
+  display: grid;
+}
+
+.nav-grid {
+  grid-template-columns: 225px auto 225px;
 }
 
 /* Utils */
@@ -104,4 +117,15 @@ header {
 .square img {
   width: 50px;
   height: 50px;
+}
+
+/* On Small Screens 600px or less */
+@media only screen and (max-width: 600px) {
+  .nav-grid {
+    grid-template-columns: auto;
+  }
+
+  .hide-on-sm {
+    display: none;
+  }
 }
