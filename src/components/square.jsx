@@ -8,7 +8,7 @@ export default class Square extends React.Component {
     }
   }
 
-  chooseColor(x, y) {
+  squareColor(x, y) {
     if (x % 2 === 0) {
       return y % 2 === 0 ? 'bg-dark' : 'bg-light';
     } else {
@@ -17,10 +17,18 @@ export default class Square extends React.Component {
   }
 
   render() {
-    return (
-      <div className={`square ${this.chooseColor(this.props.x, this.props.y)}` }>
-        <img src={this.state.piece ? this.state.piece.image : null} />
-      </div>
-    );
+    if (this.state.piece) {
+      return (
+        <div className={`square ${this.squareColor(this.props.x, this.props.y)}` }>
+          <img src={this.state.piece.image} alt={this.state.piece.name}/>
+        </div>
+      );
+    } else {
+      return (
+        <div className={`square ${this.squareColor(this.props.x, this.props.y)}` }>
+          <span class="sr-only">empty square</span>
+        </div>
+      );
+    }
   }
 };

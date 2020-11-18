@@ -1,6 +1,7 @@
 export default class Knight {
   constructor(color) {
     this.image = `/knight-${color}.png`;
+    this.name =  `${color} knight`;
   }
 
   isValidMove(move) {
