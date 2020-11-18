@@ -1,6 +1,6 @@
 # Chess
 
-## Overview
+This is a work in progress. Game not finished yet!
 
 I wanted to practice using React. Used the React docs [Tic-Tac-Toe](https://reactjs.org/tutorial/tutorial.html) tutorial as a baseline/example for me to follow, but obviously went from there to make a chess game. Initialized this project using [Create React App](https://github.com/facebook/create-react-app).
 
