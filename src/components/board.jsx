@@ -9,7 +9,7 @@ import Pawn from './pieces/pawn';
 
 export default class Board extends React.Component {
   renderSquare(x, y, piece = null) {
-    return <Square x={x} y={y} piece={piece} />;
+    return <Square x={x} y={y} piece={piece} onClick={() => this.props.onClick(x, y, piece)} />;
   }
 
   render() {

@@ -19,14 +19,14 @@ export default class Square extends React.Component {
   render() {
     if (this.state.piece) {
       return (
-        <div className={`square ${this.squareColor(this.props.x, this.props.y)}` }>
+        <div className={`square ${this.squareColor(this.props.x, this.props.y)}`} onClick={this.props.onClick}>
           <img src={this.state.piece.image} alt={this.state.piece.name}/>
         </div>
       );
     } else {
       return (
         <div className={`square ${this.squareColor(this.props.x, this.props.y)}` }>
-          <span class="sr-only">empty square</span>
+          <span className="sr-only">empty square</span>
         </div>
       );
     }
