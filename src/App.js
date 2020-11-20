@@ -11,9 +11,7 @@ function App() {
           <div className="d-flex justify-content-end hide-on-sm"><p className="font-md">A <a className="white" href="https://github.com/in/gvtalavera" target="_blank" rel="noopener noreferrer">Gabriel Talavera</a> production.</p></div>
         </nav>
       </header>
-      <main className="d-flex flex-column align-items-center vw-100">
-        <Game />
-      </main>
+      <Game />
     </div>
   );
 }

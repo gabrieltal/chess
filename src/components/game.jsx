@@ -12,7 +12,12 @@ export default class Game extends React.Component {
     super(props);
 
     this.state = {
-      squares: this.initializeBoard()
+      squares: this.initializeBoard(),
+      message: 'Welcome! White\'s turn.',
+      current: 'white',
+      selectedPiece: null,
+      whiteGraveyard: [],
+      blackGraveyard: []
     };
   }
 
@@ -68,12 +73,25 @@ export default class Game extends React.Component {
 
     newSquareState[index - 8] = piece;
     newSquareState[index] = null;
-    this.setState(oldState => ({squares: newSquareState}));
+
+    let newCurrentPlayer = this.state.current === 'white' ? 'black' : 'white';
+
+    this.setState(oldState => ({
+      squares: newSquareState,
+      current: newCurrentPlayer,
+      message: `${newCurrentPlayer}'s turn.`
+    }));
   }
 
   render() {
     return (
-      <Board squares={this.state.squares} onClick={(index) => this.handleClick(index) }/>
+      <main className="d-flex flex-column align-items-center vw-100">
+        <Board squares={this.state.squares} onClick={(index) => this.handleClick(index) }/>
+
+        <section>
+          <p>{this.state.message}</p>
+        </section>
+      </main>
     );
   }
 }
