@@ -1,13 +1,6 @@
 import React from 'react';
 
 export default class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      piece: props.piece
-    }
-  }
-
   squareColor(x, y) {
     if (x % 2 === 0) {
       return y % 2 === 0 ? 'bg-dark' : 'bg-light';
@@ -17,10 +10,10 @@ export default class Square extends React.Component {
   }
 
   render() {
-    if (this.state.piece) {
+    if (this.props.piece) {
       return (
         <div className={`square ${this.squareColor(this.props.x, this.props.y)}`} onClick={this.props.onClick}>
-          <img src={this.state.piece.image} alt={this.state.piece.name}/>
+          <img src={this.props.piece.image} alt={this.props.piece.name}/>
         </div>
       );
     } else {
