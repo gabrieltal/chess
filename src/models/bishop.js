@@ -1,7 +1,10 @@
 export default class Bishop {
   constructor(color) {
+    this.color = color;
     this.image = `/bishop-${color}.png`;
-    this.name =  `${color} bishop`;
+    this.name = `${color} bishop`;
+    this.selected = false;
+    this.hasMoved = false;
   }
 
   isValidMove(move) {
