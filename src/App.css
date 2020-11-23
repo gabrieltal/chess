@@ -19,6 +19,10 @@
   background-color: #B58863;
 }
 
+.border-yellow {
+  border: 2px solid yellow !important;
+}
+
 /* Links/Text */
 a {
   color: skyblue;
@@ -112,6 +116,7 @@ header {
   display: inline-block;
   text-align: center;
   vertical-align: bottom;
+  border: 2px solid transparent;
 }
 
 .square img {
