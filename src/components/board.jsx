@@ -3,11 +3,7 @@ import React from 'react';
 
 export default class Board extends React.Component {
   renderSquare(index, x, y, piece = null) {
-    if (piece) {
-      return <Square key={index} index={index} x={x} y={y} piece={piece} onClick={() => this.props.onClick(index)} />;
-    } else {
-      return <Square key={index} index={index} x={x} y={y} piece={piece} />;
-    }
+    return <Square key={index} index={index} x={x} y={y} piece={piece} onClick={() => this.props.onClick(index)} />;
   }
 
   render() {

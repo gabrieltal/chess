@@ -26,7 +26,7 @@ export default class Square extends React.Component {
       );
     } else {
       return (
-        <div className={`square ${this.squareColor(this.props.x, this.props.y)}` }>
+        <div className={`square ${this.squareColor(this.props.x, this.props.y)}`} onClick={this.props.onClick}>
           <span className="sr-only">empty square</span>
         </div>
       );
