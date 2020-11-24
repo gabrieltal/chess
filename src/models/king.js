@@ -1,10 +1,11 @@
 export default class King {
-  constructor(color) {
+  constructor(color, position) {
     this.color = color;
     this.image = `/king-${color}.png`;
     this.name = `${color} king`;
     this.selected = false;
     this.hasMoved = false;
+    this.currentPosition = position;
   }
 
   isValidMove(move) {

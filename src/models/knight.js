@@ -1,10 +1,11 @@
 export default class Knight {
-  constructor(color) {
+  constructor(color, position) {
     this.color = color;
     this.image = `/knight-${color}.png`;
     this.name = `${color} knight`;
     this.selected = false;
     this.hasMoved = false;
+    this.currentPosition = position;
   }
 
   isValidMove(move) {

@@ -1,10 +1,11 @@
 export default class Rook {
-  constructor(color) {
+  constructor(color, position) {
     this.color = color;
     this.image = `/rook-${color}.png`;
     this.name = `${color} rook`;
     this.selected = false;
     this.hasMoved = false;
+    this.currentPosition = position;
   }
 
   isValidMove(move) {
