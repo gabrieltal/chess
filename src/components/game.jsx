@@ -78,8 +78,8 @@ export default class Game extends React.Component {
     return players;
   }
 
-  validateMove(piece, index) {
-    return false;
+  validateMove(selectedSquare, index) {
+    return this.state.selectedPiece.possibleMoves().includes(index);
   }
 
   validateSelectedPiece(piece) {
@@ -88,41 +88,44 @@ export default class Game extends React.Component {
 
   handleClick(index) {
     let selectedSquare = this.state.squares[index];
-    let newSquareState = [...this.state.squares];
-    let newCurrentPlayer = this.state.current;
-    let newMessage;
+    let squares = [...this.state.squares];
+    let currentPlayer = this.state.current;
+    let message = this.state.message;
+    let selectedPiece = this.state.selectedPiece;
 
     // Make move if piece is already selected and valid move
-    if (this.state.selectedPiece && this.validateMove(selectedSquare, index)) {
-      console.log('move the selected piece');
-      newSquareState[index - 8] = this.state.selectedPiece;
-      newSquareState[index] = null;
-      newCurrentPlayer = this.state.current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
+    if (selectedPiece && this.validateMove(selectedSquare, index)) {
+      // Physically move the piece
+      squares[index] = selectedPiece;
+      squares[selectedPiece.currentPosition] = null;
+      // Mark piece as having moved and update its currentPosition
+      selectedPiece.makeMove(index);
 
-      newMessage = `${newCurrentPlayer.color}'s turn.`;
+      // Setting up for the next player's turn
+      selectedPiece = null;
+      currentPlayer = this.state.current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
+
+      message = `${currentPlayer.color}'s turn.`;
     // Move was invalid
-    } else if (this.state.selectedPiece) {
-      console.log('invalid move!');
+    } else if (selectedPiece) {
+      message = 'You cannot move there.'
     // Check if user is allowed to select the piece
-    } else if (this.validateSelectedPiece(selectedSquare)){
-      console.log('mark piece as selected');
+    } else if (selectedSquare && this.validateSelectedPiece(selectedSquare)){
       selectedSquare.selected = true;
-      newSquareState[index] = selectedSquare;
-      newMessage = `Select where to move ${selectedSquare.name}`;
-      // Highlight squares where user can possibly move
-      // piece.possibleMoves().forEach((possibleMove) => {
-      //   newSquareState[possibleMove] = { style: 'possible-move' };
-      // });
+      squares[index] = selectedSquare;
+      message = `Select where to move ${selectedSquare.name}`;
 
+      selectedPiece = selectedSquare;
     // User wasn't allowed to click the piece
     } else {
-      console.log('you aren\'t supposed to click that');
+      message = `Please select one of the ${currentPlayer.color} pieces.`
     }
 
     this.setState(oldState => ({
-      squares: newSquareState,
-      current: newCurrentPlayer,
-      message: newMessage
+      squares: squares,
+      current: currentPlayer,
+      message: message,
+      selectedPiece: selectedPiece
     }));
   }
 
