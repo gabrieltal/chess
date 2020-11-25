@@ -94,7 +94,7 @@ export default class Game extends React.Component {
     let selectedPiece = this.state.selectedPiece;
 
     // Make move if piece is already selected and valid move
-    if (selectedPiece && this.validateMove(selectedSquare, index)) {
+    if (selectedPiece && this.validateMove(selectedPiece, index)) {
       // Physically move the piece
       squares[index] = selectedPiece;
       squares[selectedPiece.currentPosition] = null;
@@ -106,21 +106,27 @@ export default class Game extends React.Component {
       // Setting up for the next player's turn
       selectedPiece = null;
       currentPlayer = this.state.current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
+      message = `${currentPlayer.color}'s turn. Please select a piece to move.`;
+    // If the selected square has a piece that is on the same team as the user then mark that new piece as selected
+    } else if (selectedPiece && this.validateSelectedPiece(selectedSquare)) {
+      squares[index] = selectedSquare;
+      message = `Select where to move ${selectedSquare.name}`;
+      selectedPiece.selected = false;
 
-      message = `${currentPlayer.color}'s turn.`;
-    // Move was invalid
+      selectedPiece = selectedSquare;
+      selectedPiece.selected = true;
+    // Move was invalid otherwise
     } else if (selectedPiece) {
       message = 'You cannot move there.'
     // Check if user is allowed to select the piece
     } else if (selectedSquare && this.validateSelectedPiece(selectedSquare)){
-      selectedSquare.selected = true;
       squares[index] = selectedSquare;
       message = `Select where to move ${selectedSquare.name}`;
-
       selectedPiece = selectedSquare;
-    // User wasn't allowed to click the piece
+      selectedPiece.selected = true;
+    // User wasn't allowed to click the square
     } else {
-      message = `Please select one of the ${currentPlayer.color} pieces.`
+      message = `Please select one of the ${currentPlayer.color} pieces to move.`
     }
 
     this.setState(oldState => ({
