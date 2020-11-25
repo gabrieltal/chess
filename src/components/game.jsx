@@ -99,6 +99,8 @@ export default class Game extends React.Component {
       squares[index] = selectedPiece;
       squares[selectedPiece.currentPosition] = null;
       // Mark piece as having moved and update its currentPosition
+      // TODO: I wonder if I can accomplish this via one of the React lifecycle methods
+      // It would update all pieces on the board's positions after the board was updated
       selectedPiece.makeMove(index);
 
       // Setting up for the next player's turn
