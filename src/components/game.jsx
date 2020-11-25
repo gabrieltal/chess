@@ -83,7 +83,7 @@ export default class Game extends React.Component {
   }
 
   validateSelectedPiece(piece) {
-    return piece.color === this.state.current.color;
+    return piece && (piece.color === this.state.current.color);
   }
 
   handleClick(index) {
