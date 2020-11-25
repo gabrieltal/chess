@@ -18,12 +18,12 @@ export default class Pawn {
     possibleMove = this.currentPosition + this.baseMovement();
     if (!this.pieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
-    }
 
-    // If the Pawn hasn't moved yet it can move up two unless there is a piece in the way
-    possibleMove = this.currentPosition + this.baseMovement() + this.baseMovement();
-    if (!this.hasMoved && !this.pieceAtSquare(squares, possibleMove)) {
-      possibilities.push(possibleMove);
+      // If the Pawn hasn't moved yet it can move up two unless there is a piece in the way
+      possibleMove += this.baseMovement();
+      if (!this.hasMoved && !this.pieceAtSquare(squares, possibleMove)) {
+        possibilities.push(possibleMove);
+      }
     }
 
     // If there is an enemy at the left diagonal of the pawn then we can strike it
