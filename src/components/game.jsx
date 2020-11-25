@@ -78,8 +78,8 @@ export default class Game extends React.Component {
     return players;
   }
 
-  validateMove(selectedSquare, index) {
-    return this.state.selectedPiece.possibleMoves().includes(index);
+  validateMove(piece, index) {
+    return piece.possibleMoves(this.state.squares).includes(index);
   }
 
   validateSelectedPiece(piece) {
