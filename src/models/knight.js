@@ -8,53 +8,88 @@ export default class Knight {
     this.currentPosition = position;
   }
 
-  isValidMove(move) {
-    this.possibleMoves().includes(move);
-  }
-
-  possibleMoves() {
-    var posibilities = [];
+  possibleMoves(squares) {
+    const possibilities = [];
+    let possibleMove;
+    let pieceAtSquare;
 
     // Check 2 up 1 left move
-    if (this.square.x > 0 && this.square.y < 6) {
-      posibilities.push([this.square.x - 1, this.square.y + 2]);
+    possibleMove = this.currentPosition - 17;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 1 up 2 left move
-    if (this.square.x > 1 && this.square.y < 7) {
-      posibilities.push([this.square.x - 2, this.square.y + 1]);
+    possibleMove = this.currentPosition - 10;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 2 up 1 right move
-    if (this.square.x < 7 && this.square.y < 6) {
-      posibilities.push([this.square.x + 1, this.square.y + 2]);
+    possibleMove = this.currentPosition - 15;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 1 up 2 right move
-    if (this.square.x < 6 && this.square.y < 7) {
-      posibilities.push([this.square.x + 2, this.square.y + 1]);
+    possibleMove = this.currentPosition - 6;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 2 down 1 left move
-    if (this.square.x > 0 && this.square.y > 1) {
-      posibilities.push([this.square.x - 1, this.square.y - 2]);
+    possibleMove = this.currentPosition + 15;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 1 down 2 left move
-    if (this.square.x > 1 && this.square.y > 0) {
-      posibilities.push([this.square.x - 2, this.square.y - 1]);
+    possibleMove = this.currentPosition + 6;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 2 down 1 right move
-    if (this.square.x > 7 && this.square.y > 1) {
-      posibilities.push([this.square.x + 1, this.square.y - 2]);
+    possibleMove = this.currentPosition + 17;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
     // Check 1 down 2 right move
-    if (this.square.x < 6 && this.square.y > 0) {
-      posibilities.push([this.square.x + 2, this.square.y - 1]);
+    possibleMove = this.currentPosition + 10;
+    pieceAtSquare = squares[possibleMove];
+    if (!pieceAtSquare || pieceAtSquare.color !== this.color) {
+      possibilities.push(possibleMove);
     }
 
-    return posibilities;
+    return possibilities;
+  }
+
+  makeMove(index) {
+    this.currentPosition = index;
+    this.hasMoved = true;
+  }
+
+  atLeftBorder(position) {
+    return position % 8 === 0;
+  }
+
+  atRightBorder(position) {
+    return (position + 1) % 8 === 0;
+  }
+
+  atTopBorder(position) {
+    return position < 0;
+  }
+
+  atBottomBorder(position) {
+    return position > 63;
   }
 }
