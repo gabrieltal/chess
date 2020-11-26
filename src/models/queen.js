@@ -120,6 +120,43 @@ export default class Queen {
       step += 1;
     }
 
+    // Move horizontal
+    step = 1;
+    let canMoveLeft = this.currentPosition % 8 === 0 ? false : true;
+    let canMoveRight = (this.currentPosition + 1) % 8 === 0 ? false : true;
+    while (canMoveLeft || canMoveRight) {
+      if (canMoveLeft) {
+        indexAtPosition = this.currentPosition - step;
+        if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
+          possibilities.push(indexAtPosition);
+        } else if (this.pieceAtSquare(squares, indexAtPosition)) {
+          canMoveLeft = false;
+        } else if (indexAtPosition % 8 === 0) {
+          possibilities.push(indexAtPosition);
+          canMoveLeft = false;
+        } else {
+          possibilities.push(indexAtPosition);
+        }
+      }
+
+      if (canMoveRight) {
+        indexAtPosition = this.currentPosition + step;
+        if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
+          possibilities.push(indexAtPosition);
+        } else if (this.pieceAtSquare(squares, indexAtPosition)) {
+          canMoveRight = false;
+        } else if ((indexAtPosition + 1) % 8 === 0) {
+          possibilities.push(indexAtPosition);
+          canMoveRight = false;
+        } else {
+          possibilities.push(indexAtPosition);
+        }
+      }
+
+      step += 1;
+    }
+
+
     return possibilities;
   }
 
@@ -154,7 +191,6 @@ export default class Queen {
   enemyPieceAtSquare(squares, index) {
     return squares[index] && squares[index].color !== this.color;
   }
-
 
   makeMove(index) {
     this.currentPosition = index;
