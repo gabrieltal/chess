@@ -8,12 +8,9 @@ export default class Queen {
     this.currentPosition = position;
   }
 
-  isValidMove(move) {
-    this.possibleMoves().includes(move);
-  }
-
-  possibleMoves() {
-    var posibilities = [];
+  possibleMoves(squares) {
+    const posibilities = [];
+    let possibleMove;
 
     return posibilities;
   }
