@@ -8,13 +8,69 @@ export default class King {
     this.currentPosition = position;
   }
 
-  isValidMove(move) {
-    this.possibleMoves().includes(move);
+  possibleMoves(squares) {
+    const possibilities = [];
+    let possibleMove;
+
+    // Check up move
+    possibleMove = this.currentPosition - 8;
+    if (possibleMove > 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check directly up left diagonal move
+    possibleMove = this.currentPosition - 9;
+    if (possibleMove > 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check directly up right diagonal move
+    possibleMove = this.currentPosition - 7;
+    if (possibleMove > 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check left move
+    possibleMove = this.currentPosition - 1;
+    if (this.currentPosition % 8 !== 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check right move
+    possibleMove = this.currentPosition + 1;
+    if (possibleMove % 8 !== 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check down move
+    possibleMove = this.currentPosition + 8;
+    if (possibleMove < 64 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check directly down left diagonal move
+    possibleMove = this.currentPosition + 7;
+    if (possibleMove < 64 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // Check directly down right diagonal move
+    possibleMove = this.currentPosition + 9;
+    if (possibleMove < 64 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+      possibilities.push(possibleMove);
+    }
+
+    // TODO: Add castling logic
+
+    return possibilities;
   }
 
-  possibleMoves() {
-    var posibilities = [];
+  emptySquareOrEnemyPieceAtSquare(squares, index) {
+    return !squares[index] || squares[index].color !== this.color;
+  }
 
-    return posibilities;
+  makeMove(index) {
+    this.currentPosition = index;
+    this.hasMoved = true;
   }
 }
