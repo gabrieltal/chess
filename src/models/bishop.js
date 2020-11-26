@@ -11,18 +11,16 @@ export default class Bishop {
   possibleMoves(squares) {
     const possibilities = [];
     let possibleMove;
-    let pieceAtSquare;
 
     // Add moves from the top left diagonal
     possibleMove = this.currentPosition;
     while(!this.atLeftBorder(possibleMove) && !this.atTopBorder(possibleMove)) {
       possibleMove -= 9;
 
-      pieceAtSquare = squares[possibleMove];
-      if (pieceAtSquare && pieceAtSquare.color !== this.color) {
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
         break;
-      } else if (pieceAtSquare) {
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
         possibilities.push(possibleMove);
@@ -34,11 +32,10 @@ export default class Bishop {
     while(!this.atRightBorder(possibleMove) && !this.atTopBorder(possibleMove)) {
       possibleMove -= 7;
 
-      pieceAtSquare = squares[possibleMove];
-      if (pieceAtSquare && pieceAtSquare.color !== this.color) {
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
         break;
-      } else if (pieceAtSquare) {
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
         possibilities.push(possibleMove);
@@ -50,11 +47,10 @@ export default class Bishop {
     while(!this.atLeftBorder(possibleMove) && !this.atBottomBorder(possibleMove)) {
       possibleMove += 7;
 
-      pieceAtSquare = squares[possibleMove];
-      if (pieceAtSquare && pieceAtSquare.color !== this.color) {
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
         break;
-      } else if (pieceAtSquare) {
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
         possibilities.push(possibleMove);
@@ -66,11 +62,10 @@ export default class Bishop {
     while(!this.atRightBorder(possibleMove) && !this.atBottomBorder(possibleMove)) {
       possibleMove += 9;
 
-      pieceAtSquare = squares[possibleMove];
-      if (pieceAtSquare && pieceAtSquare.color !== this.color) {
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
         break;
-      } else if (pieceAtSquare) {
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
         possibilities.push(possibleMove);
@@ -96,12 +91,16 @@ export default class Bishop {
     return position > 63;
   }
 
-  teamPieceAtSquare(squares, position) {
-    return squares[position] && squares[position].color === this.color;
-  }
-
   makeMove(index) {
     this.currentPosition = index;
     this.hasMoved = true;
+  }
+
+  pieceAtSquare(squares, position) {
+    return squares[position];
+  }
+
+  enemyPieceAtSquare(squares, position) {
+    return squares[position] && squares[position].color !== this.color;
   }
 }
