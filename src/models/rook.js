@@ -8,13 +8,75 @@ export default class Rook {
     this.currentPosition = position;
   }
 
-  isValidMove(move) {
-    this.possibleMoves().includes(move);
+  possibleMoves(squares) {
+    const possibilities = [];
+    let possibleMove;
+
+    // Move up
+    possibleMove = this.currentPosition - 8;
+    while(possibleMove > 0) {
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
+        possibilities.push(possibleMove);
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
+        break;
+      } else {
+        possibilities.push(possibleMove);
+      }
+      possibleMove -= 8;
+    }
+
+    // Move down
+    possibleMove = this.currentPosition + 8;
+    while(possibleMove < 64) {
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
+        possibilities.push(possibleMove);
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
+        break;
+      } else {
+        possibilities.push(possibleMove);
+      }
+      possibleMove += 8;
+    }
+
+    // Move left
+    possibleMove = this.currentPosition;
+    while(possibleMove % 8 !== 0) {
+      possibleMove -= 1;
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
+        possibilities.push(possibleMove);
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
+        break;
+      } else {
+        possibilities.push(possibleMove);
+      }
+    }
+
+    // Move right
+    possibleMove = this.currentPosition;
+    while((possibleMove + 1) % 8 !== 0) {
+      possibleMove += 1;
+      if (this.enemyPieceAtSquare(squares, possibleMove)) {
+        possibilities.push(possibleMove);
+      } else if (this.pieceAtSquare(squares, possibleMove)) {
+        break;
+      } else {
+        possibilities.push(possibleMove);
+      }
+    }
+
+    return possibilities;
   }
 
-  possibleMoves() {
-    var posibilities = [];
+  pieceAtSquare(squares, index) {
+    return squares[index];
+  }
 
-    return posibilities;
+  enemyPieceAtSquare(squares, index) {
+    return squares[index] && squares[index].color !== this.color;
+  }
+
+  makeMove(index) {
+    this.currentPosition = index;
+    this.hasMoved = true;
   }
 }
