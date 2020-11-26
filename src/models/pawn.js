@@ -28,13 +28,13 @@ export default class Pawn {
 
     // If there is an enemy at the left diagonal of the pawn then we can strike it
     possibleMove = this.currentPosition + this.baseMovement() - 1;
-    if (this.pieceAtSquare(squares, possibleMove)) {
+    if (this.enemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // If there is an enemy at the left diagonal of the pawn then we can strike it
     possibleMove = this.currentPosition + this.baseMovement() + 1;
-    if (this.pieceAtSquare(squares, possibleMove)) {
+    if (this.enemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
@@ -51,6 +51,10 @@ export default class Pawn {
     } else {
       return BASE_MOVEMENT;
     }
+  }
+
+  enemyPieceAtSquare(squares, position) {
+    return squares[position] && squares[position].color !== this.color;
   }
 
   pieceAtSquare(squares, position) {
