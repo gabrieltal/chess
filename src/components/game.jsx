@@ -1,5 +1,6 @@
 import React from 'react';
 import Board from './board';
+import Scoreboard from './scoreboard';
 import Knight from '../models/knight';
 import Bishop from '../models/bishop';
 import King from '../models/king';
@@ -146,12 +147,10 @@ export default class Game extends React.Component {
 
   render() {
     return (
-      <main className="d-flex flex-column align-items-center vw-100">
+      <main className="d-flex justify-content-between align-items-center vw-100">
+        <Scoreboard players={this.state.players} current={this.state.current} moves={this.state.history.moves} whiteGraveyard={this.state.whiteGraveyard} blackGraveyard={this.state.blackGraveyard} />
         <Board squares={this.state.squares} onClick={(index) => this.handleClick(index) }/>
-
-        <section>
-          <p>{this.state.message}</p>
-        </section>
+        <div className="empty h-100 m-2"></div>
       </main>
     );
   }
