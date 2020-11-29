@@ -6,6 +6,7 @@ import King from '../models/king';
 import Queen from '../models/queen';
 import Rook from '../models/rook';
 import Pawn from '../models/pawn';
+import History from '../models/history';
 import Player from '../models/player';
 
 export default class Game extends React.Component {
@@ -21,7 +22,8 @@ export default class Game extends React.Component {
       current: players['white'],
       selectedPiece: null,
       whiteGraveyard: [],
-      blackGraveyard: []
+      blackGraveyard: [],
+      history: new History()
     };
   }
 
@@ -92,9 +94,13 @@ export default class Game extends React.Component {
     let currentPlayer = this.state.current;
     let message = this.state.message;
     let selectedPiece = this.state.selectedPiece;
+    let history = this.state.history;
 
     // Make move if piece is already selected and valid move
     if (selectedPiece && this.validateMove(selectedPiece, index)) {
+      // Updating game record
+      history.logMove({ current: currentPlayer, piece: selectedPiece, move_to: index, move_from: selectedPiece.currentPosition });
+
       // Physically move the piece
       squares[index] = selectedPiece;
       squares[selectedPiece.currentPosition] = null;
@@ -133,7 +139,8 @@ export default class Game extends React.Component {
       squares: squares,
       current: currentPlayer,
       message: message,
-      selectedPiece: selectedPiece
+      selectedPiece: selectedPiece,
+      history: history
     }));
   }
 
