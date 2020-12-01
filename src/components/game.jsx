@@ -90,58 +90,74 @@ export default class Game extends React.Component {
   }
 
   handleClick(index) {
-    let selectedSquare = this.state.squares[index];
-    let squares = [...this.state.squares];
-    let currentPlayer = this.state.current;
-    let message = this.state.message;
+    let squareClicked = this.state.squares[index];
     let selectedPiece = this.state.selectedPiece;
-    let history = this.state.history;
 
-    // Make move if piece is already selected and valid move
-    if (selectedPiece && this.validateMove(selectedPiece, index)) {
-      // Updating game record
-      history.logMove({ current: currentPlayer, piece: selectedPiece, move_to: index, move_from: selectedPiece.currentPosition });
-
-      // Physically move the piece
-      squares[index] = selectedPiece;
-      squares[selectedPiece.currentPosition] = null;
-      // Mark piece as having moved and update its currentPosition
-      // TODO: I wonder if I can accomplish this via one of the React lifecycle methods
-      // It would update all pieces on the board's positions after the board was updated
-      selectedPiece.makeMove(index);
-
-      // Setting up for the next player's turn
-      selectedPiece = null;
-      currentPlayer = this.state.current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
-      message = `${currentPlayer.color}'s turn. Please select a piece to move.`;
-    // If the selected square has a piece that is on the same team as the user then mark that new piece as selected
-    } else if (selectedPiece && this.validateSelectedPiece(selectedSquare)) {
-      squares[index] = selectedSquare;
-      message = `Select where to move ${selectedSquare.name}`;
-      selectedPiece.selected = false;
-
-      selectedPiece = selectedSquare;
-      selectedPiece.selected = true;
-    // Move was invalid otherwise
-    } else if (selectedPiece) {
-      message = 'You cannot move there.'
-    // Check if user is allowed to select the piece
-    } else if (selectedSquare && this.validateSelectedPiece(selectedSquare)){
-      squares[index] = selectedSquare;
-      message = `Select where to move ${selectedSquare.name}`;
-      selectedPiece = selectedSquare;
-      selectedPiece.selected = true;
-    // User wasn't allowed to click the square
+    // If user has already selected a piece...
+    if (selectedPiece) {
+      // Make move if piece is already selected and valid move
+      if (this.validateMove(selectedPiece, index)) {
+        return this.movePiece(selectedPiece, index);
+      // If the selected square has a piece that is on the same team as the user then mark that new piece as selected
+      } else if (this.validateSelectedPiece(squareClicked)) {
+        return this.selectPiece(squareClicked, selectedPiece);
+      // Move was invalid otherwise
+      } else {
+        return this.setState(oldState => ({
+          message: 'You cannot move there.'
+        }));
+      }
+    // Else if user hasn't selected a piece yet, check if user is allowed to select the square
+    } else if (this.validateSelectedPiece(squareClicked)) {
+      return this.selectPiece(squareClicked);
+    // Else user wasn't allowed to click the square
     } else {
-      message = `Please select one of the ${currentPlayer.color} pieces to move.`
+      return this.setState(oldState => ({
+        message: `Please select one of the ${this.state.current.color} pieces to move.`
+      }));
     }
+  }
+
+  movePiece(piece, index) {
+    let history = this.state.history;
+    let current = this.state.current;
+    let squares = this.state.squares;
+    let message = this.state.message;
+
+    // Updating game record
+    history.logMove({ current: current, piece: piece, move_to: index, move_from: piece.currentPosition });
+
+    // Physically move the piece
+    squares[index] = piece;
+    squares[piece.currentPosition] = null;
+
+    // Mark piece as having moved and update its currentPosition
+    // TODO: I wonder if I can accomplish this via one of the React lifecycle methods
+    // It would update all pieces on the board's positions after the board was updated
+    piece.makeMove(index);
+
+    // Setting up for the next player's turn
+    current = current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
 
     this.setState(oldState => ({
       squares: squares,
-      current: currentPlayer,
-      message: message,
-      selectedPiece: selectedPiece,
+      current: current,
+      message: `${current.color}'s turn. Please select a piece to move.`,
+      selectedPiece: null,
       history: history
+    }));
+  }
+
+  selectPiece(piece, previouslySelectedPiece = null) {
+    if (previouslySelectedPiece) {
+      previouslySelectedPiece.selected = false;
+    }
+
+    piece.selected = true;
+
+    this.setState(oldState => ({
+      message: `Select where to move ${piece.name}`,
+      selectedPiece: piece
     }));
   }
 
