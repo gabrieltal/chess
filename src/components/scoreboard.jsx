@@ -1,5 +1,6 @@
 import Square from './square';
 import React from 'react';
+import PlayerCard from './playercard';
 
 export default class Scoreboard extends React.Component {
   chessNotation(piece, finish) {
@@ -88,19 +89,13 @@ export default class Scoreboard extends React.Component {
   render() {
     return (
       <section className="scoreboard">
-        <div className="player-card d-flex align-items-start justify-content-between m-2">
-          <h2 className="m-0 capitalize">{this.props.players['black'].color}</h2>
-          <span className={`bg-grey p-1 white badge ${this.props.current === this.props.players['black'] ? 'active' : 'd-none' }`}>Your turn</span>
-        </div>
-        <div className="move-history m-2">
-          <ol>
+        <PlayerCard player={this.props.players['black']} current={this.props.current} />
+        <div className="p-2">
+          <ol className="move-history p-1 bg-white h-100 m-0">
             {this.displayMoveList(this.props.moves)}
           </ol>
         </div>
-        <div className="player-card d-flex align-items-start justify-content-between m-2">
-          <h2 className="m-0 capitalize">{this.props.players['white'].color}</h2>
-          <span className={`bg-grey p-1 white badge ${this.props.current === this.props.players['white'] ? 'active' : 'd-none' }`}>Your turn</span>
-        </div>
+        <PlayerCard player={this.props.players['white']} current={this.props.current} />
       </section>
     );
   }
