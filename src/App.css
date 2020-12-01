@@ -28,8 +28,16 @@ html, body, .app, #root {
   background-color: #B58863;
 }
 
+.bg-orange {
+  background-color: orange;
+}
+
 .border-yellow {
   border: 2px solid yellow !important;
+}
+
+.border-blue {
+  border: 2px solid blue !important;
 }
 
 .badge {
