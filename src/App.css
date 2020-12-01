@@ -138,6 +138,10 @@ a:hover {
   padding: 20px;
 }
 
+.p-4 {
+  padding: 40px;
+}
+
 .py-2 {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -198,7 +202,7 @@ header {
 
 .scoreboard {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 100%;
   grid-template-rows: 100px auto 100px;
   background-color: #fcde8b;
   height: calc(100vh - 90px);
@@ -229,6 +233,8 @@ header {
   min-height: 200px;
   border: 2px solid black;
   border-radius: 4px;
+  padding-top: 20px;
+  padding-left: 35px;
 }
 
 .empty {

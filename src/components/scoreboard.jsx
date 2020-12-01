@@ -91,7 +91,7 @@ export default class Scoreboard extends React.Component {
       <section className="scoreboard">
         <PlayerCard player={this.props.players['black']} current={this.props.current} />
         <div className="p-2">
-          <ol className="move-history p-1 bg-white h-100 m-0">
+          <ol className="move-history bg-white h-100 m-0">
             {this.displayMoveList(this.props.moves)}
           </ol>
         </div>
