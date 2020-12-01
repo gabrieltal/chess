@@ -5,7 +5,6 @@ export default class Pawn {
     this.color = color;
     this.image = `/pawn-${color}.png`;
     this.name = `${color} pawn`;
-    this.selected = false;
     this.hasMoved = false;
     this.currentPosition = position;
   }

@@ -100,7 +100,7 @@ export default class Game extends React.Component {
         return this.movePiece(selectedPiece, index);
       // If the selected square has a piece that is on the same team as the user then mark that new piece as selected
       } else if (this.validateSelectedPiece(squareClicked)) {
-        return this.selectPiece(squareClicked, selectedPiece);
+        return this.selectPiece(squareClicked);
       // Move was invalid otherwise
       } else {
         return this.setState(oldState => ({
@@ -148,13 +148,7 @@ export default class Game extends React.Component {
     }));
   }
 
-  selectPiece(piece, previouslySelectedPiece = null) {
-    if (previouslySelectedPiece) {
-      previouslySelectedPiece.selected = false;
-    }
-
-    piece.selected = true;
-
+  selectPiece(piece) {
     this.setState(oldState => ({
       message: `Select where to move ${piece.name}`,
       selectedPiece: piece

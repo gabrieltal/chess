@@ -3,7 +3,6 @@ export default class Bishop {
     this.color = color;
     this.image = `/bishop-${color}.png`;
     this.name = `${color} bishop`;
-    this.selected = false;
     this.hasMoved = false;
     this.currentPosition = position;
   }

@@ -3,7 +3,6 @@ export default class Rook {
     this.color = color;
     this.image = `/rook-${color}.png`;
     this.name = `${color} rook`;
-    this.selected = false;
     this.hasMoved = false;
     this.currentPosition = position;
   }
