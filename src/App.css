@@ -16,6 +16,10 @@ html, body, .app, #root {
   background-color: grey;
 }
 
+.bg-blue {
+  background-color: blue;
+}
+
 .bg-white {
   background-color: white;
 }
@@ -43,10 +47,6 @@ html, body, .app, #root {
 .badge {
   display: inline-block;
   border-radius: 6px;
-}
-
-.active {
-  background-color: blue;
 }
 
 /* Links/Text */
