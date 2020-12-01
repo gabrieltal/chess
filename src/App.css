@@ -241,6 +241,7 @@ header {
   min-height: 200px;
   border: 2px solid black;
   border-radius: 4px;
+  max-height: calc(100% - 20px);
 }
 
 .move-description {
