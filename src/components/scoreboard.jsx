@@ -87,20 +87,19 @@ export default class Scoreboard extends React.Component {
 
   render() {
     return (
-      <section className="scoreboard h-100 mx-2 d-flex flex-column justify-content-between">
-        <div className="player-card d-flex align-items-start justify-content-between py-2">
+      <section className="scoreboard">
+        <div className="player-card d-flex align-items-start justify-content-between m-2">
           <h2 className="m-0 capitalize">{this.props.players['black'].color}</h2>
           <span className={`bg-grey p-1 white badge ${this.props.current === this.props.players['black'] ? 'active' : 'd-none' }`}>Your turn</span>
-
         </div>
-        <div className="move-history bg-dark">
+        <div className="move-history m-2">
           <ol>
             {this.displayMoveList(this.props.moves)}
           </ol>
         </div>
-        <div className="player-card d-flex align-items-start justify-content-between py-2">
+        <div className="player-card d-flex align-items-start justify-content-between m-2">
           <h2 className="m-0 capitalize">{this.props.players['white'].color}</h2>
-        <span className={`bg-grey p-1 white badge ${this.props.current === this.props.players['white'] ? 'active' : 'd-none' }`}>Your turn</span>
+          <span className={`bg-grey p-1 white badge ${this.props.current === this.props.players['white'] ? 'active' : 'd-none' }`}>Your turn</span>
         </div>
       </section>
     );

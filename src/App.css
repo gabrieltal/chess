@@ -1,3 +1,8 @@
+html, body, .app, #root {
+  height: 100%;
+  margin: 0;
+}
+
 /* Color */
 .white {
   color: white;
@@ -97,6 +102,16 @@ a:hover {
   margin: 0;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 .mx-2 {
   margin-left: 20px;
   margin-right: 20px;
@@ -127,6 +142,10 @@ a:hover {
   width: 100vw;
 }
 
+.vh-100 {
+  height: 100vh;
+}
+
 .h-100 {
   height: 100%;
 }
@@ -148,12 +167,32 @@ a:hover {
 }
 
 /* Components */
+
+main.container {
+  display: grid;
+  grid-template-columns: 350px auto;
+  grid-template-rows: auto;
+  column-gap: 10px;
+}
+
 header {
   font-size: calc(10px + 2vmin);
 }
 
 .board {
   border: 1px solid black;
+  width: 432px;
+  height: 432px;
+  justify-self: center;
+  margin-right: 340px;
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 100px auto 100px;
+  background-color: #fffb91;
+  height: calc(100vh - 90px);
 }
 
 .square {
@@ -199,8 +238,21 @@ header {
   margin-bottom: 10px;
 }
 
+@media only screen and (max-width: 796px) {
+  main.container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  main.container > .board {
+    grid-row-start: 1;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 /* On Small Screens 600px or less */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 666px) {
   .nav-grid {
     grid-template-columns: auto;
   }

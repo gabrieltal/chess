@@ -147,10 +147,9 @@ export default class Game extends React.Component {
 
   render() {
     return (
-      <main className="d-flex justify-content-between align-items-center vw-100">
+      <main className="container vw-100">
         <Scoreboard players={this.state.players} current={this.state.current} moves={this.state.history.moves} whiteGraveyard={this.state.whiteGraveyard} blackGraveyard={this.state.blackGraveyard} />
         <Board squares={this.state.squares} onClick={(index) => this.handleClick(index) }/>
-        <div className="empty h-100 m-2"></div>
       </main>
     );
   }

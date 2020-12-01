@@ -20,7 +20,7 @@ export default class Board extends React.Component {
     }
 
     return (
-      <div className="board m-2">
+      <div className="board my-2">
         {displayedBoard}
       </div>
     );
