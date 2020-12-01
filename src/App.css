@@ -112,6 +112,11 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.my-1 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .mx-2 {
   margin-left: 20px;
   margin-right: 20px;
@@ -123,6 +128,10 @@ a:hover {
 
 .ml-3 {
   margin-left: 30px;
+}
+
+.mb-2 {
+  margin-bottom: 20px;
 }
 
 .p-2 {
@@ -191,7 +200,7 @@ header {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 100px auto 100px;
-  background-color: #fffb91;
+  background-color: #fcde8b;
   height: calc(100vh - 90px);
 }
 
@@ -211,11 +220,15 @@ header {
 
 .player-card {
   min-height: 50px;
+  border: 2px solid black;
+  border-radius: 4px;
 }
 
 .move-history {
   min-width: 250px;
   min-height: 200px;
+  border: 2px solid black;
+  border-radius: 4px;
 }
 
 .empty {
