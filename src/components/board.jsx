@@ -3,7 +3,24 @@ import React from 'react';
 
 export default class Board extends React.Component {
   renderSquare(index, x, y, piece = null) {
-    return <Square key={index} index={index} x={x} y={y} piece={piece} onClick={() => this.props.onClick(index)} />;
+    let cssClasses = '';
+
+    if (this.props.lastMove && (this.props.lastMove.move_from === index || this.props.lastMove.move_to === index)) {
+      cssClasses = 'bg-orange';
+    } else {
+      // default background colors
+      if (x % 2 === 0) {
+        cssClasses = y % 2 === 0 ? 'bg-dark' : 'bg-light';
+      } else {
+        cssClasses = y % 2 === 0 ? 'bg-light' : 'bg-dark';
+      }
+
+      if (this.props.selectedPiece && this.props.selectedPiece === piece) {
+        cssClasses += ' border-blue';
+      }
+    }
+
+    return <Square key={index} piece={piece} cssClasses={cssClasses} onClick={() => this.props.onClick(index)} />;
   }
 
   render() {
