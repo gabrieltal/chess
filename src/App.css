@@ -96,6 +96,10 @@ a:hover {
   flex-direction: column;
 }
 
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
 /* Grid */
 .d-grid {
   display: grid;
@@ -164,7 +168,7 @@ a:hover {
 }
 
 .vh-100 {
-  height: 100vh;
+  height: calc(100vh - 90px);
 }
 
 .h-100 {
@@ -209,11 +213,7 @@ header {
 }
 
 .scoreboard {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 100px auto 100px;
   background-color: #fcde8b;
-  height: calc(100vh - 90px);
 }
 
 .square {
@@ -241,12 +241,6 @@ header {
   min-height: 200px;
   border: 2px solid black;
   border-radius: 4px;
-  padding-top: 20px;
-  padding-left: 35px;
-}
-
-.empty {
-  min-width: 250px;
 }
 
 .move-description {
@@ -287,4 +281,8 @@ header {
   .hide-on-sm {
     display: none;
   }
+}
+
+.scrollable {
+  overflow-y: scroll;
 }
