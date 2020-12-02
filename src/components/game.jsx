@@ -122,18 +122,24 @@ export default class Game extends React.Component {
     let history = this.state.history;
     let current = this.state.current;
     let squares = this.state.squares;
-    let message = this.state.message;
+    let blackGraveyard = this.state.blackGraveyard;
+    let whiteGraveyard = this.state.whiteGraveyard;
 
     // Updating game record
     history.logMove({ current: current, piece: piece, move_to: index, move_from: piece.currentPosition });
+
+    // Add pieces to the graveyard that have been killed
+    if (squares[index] && squares[index].color === 'white') {
+      whiteGraveyard.push(squares[index]);
+    } else if (squares[index] && squares[index].color === 'black') {
+      blackGraveyard.push(squares[index]);
+    }
 
     // Physically move the piece
     squares[index] = piece;
     squares[piece.currentPosition] = null;
 
     // Mark piece as having moved and update its currentPosition
-    // TODO: I wonder if I can accomplish this via one of the React lifecycle methods
-    // It would update all pieces on the board's positions after the board was updated
     piece.makeMove(index);
 
     // Setting up for the next player's turn
@@ -144,7 +150,9 @@ export default class Game extends React.Component {
       current: current,
       message: `${current.color}'s turn. Please select a piece to move.`,
       selectedPiece: null,
-      history: history
+      history: history,
+      blackGraveyard: blackGraveyard,
+      whiteGraveyard: whiteGraveyard
     }));
   }
 
