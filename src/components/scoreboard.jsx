@@ -1,4 +1,3 @@
-import Square from './square';
 import React from 'react';
 import PlayerCard from './playercard';
 
@@ -31,16 +30,16 @@ export default class Scoreboard extends React.Component {
 
   render() {
     return (
-      <section className="scoreboard h-100 d-flex flex-column">
-        <PlayerCard player={this.props.players['black']} current={this.props.current} />
-        <div className="flex-grow-1 p-2">
+      <section className="scoreboard h-100 d-flex flex-column justify-content-between">
+        <PlayerCard player={this.props.players['black']} current={this.props.current} graveyard={this.props.whiteGraveyard} />
+        <div className="h-100 p-2">
           <div className="move-history bg-white h-100 scrollable">
-            <ol>
+            <ol className="d-inline-block">
               {this.displayMoveList(this.props.moves)}
             </ol>
           </div>
         </div>
-        <PlayerCard player={this.props.players['white']} current={this.props.current} />
+        <PlayerCard player={this.props.players['white']} current={this.props.current} graveyard={this.props.blackGraveyard} />
       </section>
     );
   }
