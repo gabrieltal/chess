@@ -184,11 +184,11 @@ export default class Queen {
   }
 
   pieceAtSquare(squares, index) {
-    return squares[index];
+    return squares[index].piece;
   }
 
   enemyPieceAtSquare(squares, index) {
-    return squares[index] && squares[index].color !== this.color;
+    return squares[index].piece && squares[index].piece.color !== this.color;
   }
 
   makeMove(index) {

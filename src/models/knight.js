@@ -109,6 +109,6 @@ export default class Knight {
   }
 
   teamPieceAtSquare(squares, position) {
-    return squares[position] && squares[position].color === this.color;
+    return squares[position].piece && squares[position].piece.color === this.color;
   }
 }

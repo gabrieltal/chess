@@ -65,7 +65,7 @@ export default class King {
   }
 
   emptySquareOrEnemyPieceAtSquare(squares, index) {
-    return !squares[index] || squares[index].color !== this.color;
+    return !squares[index].piece || squares[index].piece.color !== this.color;
   }
 
   makeMove(index) {

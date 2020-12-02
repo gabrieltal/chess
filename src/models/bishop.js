@@ -96,10 +96,10 @@ export default class Bishop {
   }
 
   pieceAtSquare(squares, position) {
-    return squares[position];
+    return squares[position].piece;
   }
 
   enemyPieceAtSquare(squares, position) {
-    return squares[position] && squares[position].color !== this.color;
+    return squares[position].piece && squares[position].piece.color !== this.color;
   }
 }

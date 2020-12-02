@@ -53,11 +53,11 @@ export default class Pawn {
   }
 
   enemyPieceAtSquare(squares, position) {
-    return squares[position] && squares[position].color !== this.color;
+    return squares[position].piece && squares[position].piece.color !== this.color;
   }
 
   pieceAtSquare(squares, position) {
-    return squares[position];
+    return squares[position].piece;
   }
 
   makeMove(index) {
