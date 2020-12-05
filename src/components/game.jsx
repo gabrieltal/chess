@@ -106,7 +106,7 @@ export default class Game extends React.Component {
   validateMove(selectedSquare, destinationSquare) {
     return (
       selectedSquare.possibleMoves(this.state.squares, selectedSquare.index).includes(destinationSquare.index)
-      // Make sure the move doesn't put the player in check
+      // Make sure the move doesn't put themself in check
       && !this.check(this.previewMove(selectedSquare, destinationSquare), this.state.current)
     );
   }
