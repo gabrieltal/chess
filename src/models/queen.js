@@ -1,13 +1,11 @@
-export default class Queen {
+import Piece from './piece';
+
+export default class Queen extends Piece {
   constructor(color, position) {
-    this.color = color;
-    this.image = `/queen-${color}.png`;
-    this.name = `${color} queen`;
-    this.hasMoved = false;
-    this.currentPosition = position;
+    super(color, 'queen');
   }
 
-  possibleMoves(squares) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let step = 1;
     let indexAtPosition;
@@ -16,9 +14,9 @@ export default class Queen {
     let rightMovePossible = true;
 
     // Move up
-    while(this.indexAtCenter(step, 'up') > 0) {
+    while(this.indexAtCenter(currentPosition, step, 'up') > 0) {
       if (leftMovePossible) {
-        indexAtPosition = this.indexAtLeftDiagonal(step, 'up');
+        indexAtPosition = this.indexAtLeftDiagonal(currentPosition, step, 'up');
 
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
@@ -34,7 +32,7 @@ export default class Queen {
       }
 
       if (centerMovePossible) {
-        indexAtPosition = this.indexAtCenter(step, 'up');
+        indexAtPosition = this.indexAtCenter(currentPosition, step, 'up');
 
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
@@ -47,7 +45,7 @@ export default class Queen {
       }
 
       if (rightMovePossible) {
-        indexAtPosition = this.indexAtRightDiagonal(step, 'up');
+        indexAtPosition = this.indexAtRightDiagonal(currentPosition, step, 'up');
 
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
@@ -70,9 +68,9 @@ export default class Queen {
     leftMovePossible = true;
     rightMovePossible = true;
     centerMovePossible = true;
-    while(this.indexAtCenter(step, 'down') < 64) {
+    while(this.indexAtCenter(currentPosition, step, 'down') < 64) {
       if (leftMovePossible) {
-        indexAtPosition = this.indexAtLeftDiagonal(step, 'down');
+        indexAtPosition = this.indexAtLeftDiagonal(currentPosition, step, 'down');
 
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
@@ -88,7 +86,7 @@ export default class Queen {
       }
 
       if (centerMovePossible) {
-        indexAtPosition = this.indexAtCenter(step, 'down');
+        indexAtPosition = this.indexAtCenter(currentPosition, step, 'down');
 
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
@@ -101,7 +99,7 @@ export default class Queen {
       }
 
       if (rightMovePossible) {
-        indexAtPosition = this.indexAtRightDiagonal(step, 'down');
+        indexAtPosition = this.indexAtRightDiagonal(currentPosition, step, 'down');
 
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
@@ -121,11 +119,11 @@ export default class Queen {
 
     // Move horizontal
     step = 1;
-    let canMoveLeft = this.currentPosition % 8 === 0 ? false : true;
-    let canMoveRight = (this.currentPosition + 1) % 8 === 0 ? false : true;
+    let canMoveLeft = currentPosition % 8 === 0 ? false : true;
+    let canMoveRight = (currentPosition + 1) % 8 === 0 ? false : true;
     while (canMoveLeft || canMoveRight) {
       if (canMoveLeft) {
-        indexAtPosition = this.currentPosition - step;
+        indexAtPosition = currentPosition - step;
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
@@ -139,7 +137,7 @@ export default class Queen {
       }
 
       if (canMoveRight) {
-        indexAtPosition = this.currentPosition + step;
+        indexAtPosition = currentPosition + step;
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
@@ -155,44 +153,30 @@ export default class Queen {
       step += 1;
     }
 
-
     return possibilities;
   }
 
-  indexAtCenter(step, direction) {
+  indexAtCenter(currentPosition, step, direction) {
     if (direction === 'up') {
-      return this.currentPosition - (8 * step);
+      return currentPosition - (8 * step);
     } else if (direction === 'down') {
-      return this.currentPosition + (8 * step);
+      return currentPosition + (8 * step);
     }
   }
 
-  indexAtLeftDiagonal(step, direction) {
+  indexAtLeftDiagonal(currentPosition, step, direction) {
     if (direction === 'up') {
-      return this.currentPosition - (8 * step) - step;
+      return currentPosition - (8 * step) - step;
     } else if (direction === 'down') {
-      return this.currentPosition + (8 * step) - step;
+      return currentPosition + (8 * step) - step;
     }
   }
 
-  indexAtRightDiagonal(step, direction) {
+  indexAtRightDiagonal(currentPosition, step, direction) {
     if (direction === 'up') {
-      return this.currentPosition - (8 * step) + step;
+      return currentPosition - (8 * step) + step;
     } else if (direction === 'down') {
-      return this.currentPosition + (8 * step) + step;
+      return currentPosition + (8 * step) + step;
     }
-  }
-
-  pieceAtSquare(squares, index) {
-    return squares[index].piece;
-  }
-
-  enemyPieceAtSquare(squares, index) {
-    return squares[index].piece && squares[index].piece.color !== this.color;
-  }
-
-  makeMove(index) {
-    this.currentPosition = index;
-    this.hasMoved = true;
   }
 }

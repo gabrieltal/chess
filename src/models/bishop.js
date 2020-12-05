@@ -1,18 +1,16 @@
-export default class Bishop {
-  constructor(color, position) {
-    this.color = color;
-    this.image = `/bishop-${color}.png`;
-    this.name = `${color} bishop`;
-    this.hasMoved = false;
-    this.currentPosition = position;
+import Piece from './piece';
+
+export default class Bishop extends Piece {
+  constructor(color) {
+    super(color, 'bishop');
   }
 
-  possibleMoves(squares) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
 
     // Add moves from the top left diagonal
-    possibleMove = this.currentPosition;
+    possibleMove = currentPosition;
     while(!this.atLeftBorder(possibleMove) && !this.atTopBorder(possibleMove)) {
       possibleMove -= 9;
 
@@ -27,7 +25,7 @@ export default class Bishop {
     }
 
     // Add moves from the top right diagonal
-    possibleMove = this.currentPosition;
+    possibleMove = currentPosition;
     while(!this.atRightBorder(possibleMove) && !this.atTopBorder(possibleMove)) {
       possibleMove -= 7;
 
@@ -42,7 +40,7 @@ export default class Bishop {
     }
 
     // Add moves from the bottom left diagonal
-    possibleMove = this.currentPosition;
+    possibleMove = currentPosition;
     while(!this.atLeftBorder(possibleMove) && !this.atBottomBorder(possibleMove)) {
       possibleMove += 7;
 
@@ -57,7 +55,7 @@ export default class Bishop {
     }
 
     // Add moves from the bottom right diagonal
-    possibleMove = this.currentPosition;
+    possibleMove = currentPosition;
     while(!this.atRightBorder(possibleMove) && !this.atBottomBorder(possibleMove)) {
       possibleMove += 9;
 
@@ -88,18 +86,5 @@ export default class Bishop {
 
   atBottomBorder(position) {
     return position > 63;
-  }
-
-  makeMove(index) {
-    this.currentPosition = index;
-    this.hasMoved = true;
-  }
-
-  pieceAtSquare(squares, position) {
-    return squares[position].piece;
-  }
-
-  enemyPieceAtSquare(squares, position) {
-    return squares[position].piece && squares[position].piece.color !== this.color;
   }
 }

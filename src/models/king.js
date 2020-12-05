@@ -1,60 +1,58 @@
-export default class King {
-  constructor(color, position) {
-    this.color = color;
-    this.image = `/king-${color}.png`;
-    this.name = `${color} king`;
-    this.hasMoved = false;
-    this.currentPosition = position;
+import Piece from './piece';
+
+export default class King extends Piece {
+  constructor(color) {
+    super(color, 'king');
   }
 
-  possibleMoves(squares) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
 
     // Check up move
-    possibleMove = this.currentPosition - 8;
+    possibleMove = currentPosition - 8;
     if (possibleMove > 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check directly up left diagonal move
-    possibleMove = this.currentPosition - 9;
+    possibleMove = currentPosition - 9;
     if (possibleMove > 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check directly up right diagonal move
-    possibleMove = this.currentPosition - 7;
+    possibleMove = currentPosition - 7;
     if (possibleMove > 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check left move
-    possibleMove = this.currentPosition - 1;
-    if (this.currentPosition % 8 !== 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
+    possibleMove = currentPosition - 1;
+    if (currentPosition % 8 !== 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check right move
-    possibleMove = this.currentPosition + 1;
+    possibleMove = currentPosition + 1;
     if (possibleMove % 8 !== 0 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check down move
-    possibleMove = this.currentPosition + 8;
+    possibleMove = currentPosition + 8;
     if (possibleMove < 64 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check directly down left diagonal move
-    possibleMove = this.currentPosition + 7;
+    possibleMove = currentPosition + 7;
     if (possibleMove < 64 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // Check directly down right diagonal move
-    possibleMove = this.currentPosition + 9;
+    possibleMove = currentPosition + 9;
     if (possibleMove < 64 && this.emptySquareOrEnemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
@@ -66,10 +64,5 @@ export default class King {
 
   emptySquareOrEnemyPieceAtSquare(squares, index) {
     return !squares[index].piece || squares[index].piece.color !== this.color;
-  }
-
-  makeMove(index) {
-    this.currentPosition = index;
-    this.hasMoved = true;
   }
 }

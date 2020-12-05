@@ -1,38 +1,37 @@
-const BASE_MOVEMENT = 8;
+import Piece from './piece';
 
-export default class Pawn {
-  constructor(color, position) {
-    this.color = color;
-    this.image = `/pawn-${color}.png`;
-    this.name = `${color} pawn`;
-    this.hasMoved = false;
-    this.currentPosition = position;
+export default class Pawn extends Piece {
+  constructor(color) {
+    super(color, 'pawn');
   }
 
-  possibleMoves(squares) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
+    // White pieces move up the board
+    // Black pieces move down the board
+    let baseMovement = this.color === 'white' ? -8 : 8;
 
     // Pawns can move up one unless there is a piece in the way
-    possibleMove = this.currentPosition + this.baseMovement();
+    possibleMove = currentPosition + baseMovement;
     if (!this.pieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
 
       // If the Pawn hasn't moved yet it can move up two unless there is a piece in the way
-      possibleMove += this.baseMovement();
+      possibleMove += baseMovement;
       if (!this.hasMoved && !this.pieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
       }
     }
 
     // If there is an enemy at the left diagonal of the pawn then we can strike it
-    possibleMove = this.currentPosition + this.baseMovement() - 1;
+    possibleMove = currentPosition + baseMovement - 1;
     if (this.enemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
 
     // If there is an enemy at the left diagonal of the pawn then we can strike it
-    possibleMove = this.currentPosition + this.baseMovement() + 1;
+    possibleMove = currentPosition + baseMovement + 1;
     if (this.enemyPieceAtSquare(squares, possibleMove)) {
       possibilities.push(possibleMove);
     }
@@ -40,28 +39,5 @@ export default class Pawn {
     // TODO: Need to figure out en passant logic here
 
     return possibilities;
-  }
-
-  baseMovement() {
-    // White pieces move up the board
-    if (this.color === 'white') {
-      return -BASE_MOVEMENT;
-    // Black pieces move down the board
-    } else {
-      return BASE_MOVEMENT;
-    }
-  }
-
-  enemyPieceAtSquare(squares, position) {
-    return squares[position].piece && squares[position].piece.color !== this.color;
-  }
-
-  pieceAtSquare(squares, position) {
-    return squares[position].piece;
-  }
-
-  makeMove(index) {
-    this.currentPosition = index;
-    this.hasMoved = true;
   }
 }

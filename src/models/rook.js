@@ -1,18 +1,16 @@
-export default class Rook {
+import Piece from './piece'
+
+export default class Rook extends Piece {
   constructor(color, position) {
-    this.color = color;
-    this.image = `/rook-${color}.png`;
-    this.name = `${color} rook`;
-    this.hasMoved = false;
-    this.currentPosition = position;
+    super(color, 'rook')
   }
 
-  possibleMoves(squares) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
 
     // Move up
-    possibleMove = this.currentPosition - 8;
+    possibleMove = currentPosition - 8;
     while(possibleMove > 0) {
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
@@ -25,7 +23,7 @@ export default class Rook {
     }
 
     // Move down
-    possibleMove = this.currentPosition + 8;
+    possibleMove = currentPosition + 8;
     while(possibleMove < 64) {
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
@@ -38,7 +36,7 @@ export default class Rook {
     }
 
     // Move left
-    possibleMove = this.currentPosition;
+    possibleMove = currentPosition;
     while(possibleMove % 8 !== 0) {
       possibleMove -= 1;
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
@@ -51,7 +49,7 @@ export default class Rook {
     }
 
     // Move right
-    possibleMove = this.currentPosition;
+    possibleMove = currentPosition;
     while((possibleMove + 1) % 8 !== 0) {
       possibleMove += 1;
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
@@ -64,18 +62,5 @@ export default class Rook {
     }
 
     return possibilities;
-  }
-
-  pieceAtSquare(squares, index) {
-    return squares[index].piece;
-  }
-
-  enemyPieceAtSquare(squares, index) {
-    return squares[index].piece && squares[index].piece.color !== this.color;
-  }
-
-  makeMove(index) {
-    this.currentPosition = index;
-    this.hasMoved = true;
   }
 }
