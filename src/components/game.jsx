@@ -104,7 +104,20 @@ export default class Game extends React.Component {
   }
 
   validateMove(selectedSquare, destinationSquare) {
-    return selectedSquare.possibleMoves(this.state.squares, selectedSquare.index).includes(destinationSquare.index);
+    return (
+      selectedSquare.possibleMoves(this.state.squares, selectedSquare.index).includes(destinationSquare.index)
+      // Make sure the move doesn't put the player in check
+      && !this.check(this.previewMove(selectedSquare, destinationSquare), this.state.current)
+    );
+  }
+
+  previewMove(selectedSquare, destinationSquare) {
+    let squares = JSON.parse(JSON.stringify(this.state.squares));
+
+    squares[destinationSquare.index].piece = selectedSquare.piece;
+    squares[selectedSquare.index].piece = null;
+
+    return squares;
   }
 
   validateSelectedSquare(square) {
