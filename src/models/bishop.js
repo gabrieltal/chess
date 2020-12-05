@@ -13,7 +13,6 @@ export default class Bishop extends Piece {
     possibleMove = currentPosition;
     while(!this.atLeftBorder(possibleMove) && !this.atTopBorder(possibleMove)) {
       possibleMove -= 9;
-
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
         break;

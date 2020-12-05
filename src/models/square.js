@@ -14,4 +14,12 @@ export default class Square {
       return this.column % 2 === 0 ? 'bg-light' : 'bg-dark';
     }
   }
+
+  possibleMoves(squares) {
+    if (this.piece) {
+      return this.piece.possibleMoves(squares, this.index);
+    }
+
+    return false;
+  }
 }

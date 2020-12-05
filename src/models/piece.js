@@ -7,15 +7,15 @@ export default class Piece {
   }
 
   pieceAtSquare(squares, index) {
-    return squares[index].piece;
+    return squares[index] && squares[index].piece;
   }
 
-  teamPieceAtSquare(squares, position) {
-    return squares[position].piece?.color === this.color;
+  teamPieceAtSquare(squares, index) {
+    return squares[index].piece && squares[index].piece.color === this.color;
   }
 
   enemyPieceAtSquare(squares, index) {
-    return squares[index].piece?.color !== this.color;
+    return squares[index] && squares[index].piece && squares[index].piece.color !== this.color;
   }
 
   // availableMoves(currentPosition) {
