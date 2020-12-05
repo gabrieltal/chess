@@ -84,11 +84,17 @@ export default class Game extends React.Component {
     return squares;
   }
 
-  // blackPieces() {
-  //   this.state.squares.select {
-  //
-  //   }
-  // }
+  pieces(color = null) {
+    return this.state.squares.filter(
+      (square) => {
+        if (color) {
+          return square.piece?.color === color;
+        } else {
+          return square.piece !== null;
+        }
+      }
+    );
+  }
 
   setPlayers() {
     let players = {};
@@ -98,7 +104,7 @@ export default class Game extends React.Component {
   }
 
   validateMove(selectedSquare, destinationSquare) {
-    return selectedSquare.possibleMoves(this.state.squares).includes(destinationSquare.index);
+    return selectedSquare.possibleMoves(this.state.squares, selectedSquare.index).includes(destinationSquare.index);
   }
 
   validateSelectedSquare(square) {
@@ -155,8 +161,7 @@ export default class Game extends React.Component {
 
     // Setting up for the next player's turn
     let nextPlayer = current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
-    // let inCheck = this.check(squares, nextPlayer);
-    let inCheck = false;
+    let inCheck = this.check(squares, nextPlayer);
 
     // Updating game record
     history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, inCheck: inCheck });
@@ -178,6 +183,21 @@ export default class Game extends React.Component {
       message: `Select where to move ${square.piece.name}`,
       selectedSquare: square
     }));
+  }
+
+  check(squares, player) {
+    let lastMove = this.state.history.lastMove();
+    let kingSquare = squares.find((square) => square.piece?.name === `${player.color} king`);
+
+    if (!lastMove) {
+      return false;
+    }
+
+    let enemySquares = this.pieces(player.color === 'white' ? 'black' : 'white');
+
+    return enemySquares.some((enemySquare) => {
+      return enemySquare.piece?.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)
+    });
   }
 
   render() {
