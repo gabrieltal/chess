@@ -80,10 +80,10 @@ export default class Bishop extends Piece {
   }
 
   atTopBorder(position) {
-    return position < 0;
+    return position < 7;
   }
 
   atBottomBorder(position) {
-    return position > 63;
+    return position > 55;
   }
 }
