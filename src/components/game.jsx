@@ -208,9 +208,18 @@ export default class Game extends React.Component {
     let kingSquare = squares.find((square) => square.piece?.name === `${player.color} king`);
     let enemySquares = this.pieces(squares, player.color === 'white' ? 'black' : 'white');
 
-    return enemySquares.some((enemySquare) => {
-      return enemySquare.piece.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)
-    });
+    // Cycle through the enemy pieces
+    for (let idx = 0; idx < enemySquares.length; idx++) {
+      let enemySquare = enemySquares[idx];
+
+      // If any of the enemy pieces has a possible move that includes the king square, return true, check
+      if (enemySquare.piece.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)) {
+        return true;
+      }
+    }
+
+    // Otherwise no check
+    return false;
   }
 
   checkmate(squares, player) {
