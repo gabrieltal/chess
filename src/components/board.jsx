@@ -30,6 +30,7 @@ export default class Board extends React.Component {
     return (
       <div className="board my-2">
         {displayedBoard}
+        <p>{this.props.message}</p>
       </div>
     );
   }

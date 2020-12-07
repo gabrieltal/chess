@@ -211,8 +211,8 @@ export default class Game extends React.Component {
     return (
       <main className="container vw-100 vh-100">
         <Scoreboard players={this.state.players} current={this.state.current} moves={this.state.history.moves} whiteGraveyard={this.state.whiteGraveyard} blackGraveyard={this.state.blackGraveyard} />
-        <Board squares={this.state.squares} selectedSquare={this.state.selectedSquare} lastMove={this.state.history.lastMove()} onClick={(index) => this.handleClick(index) }/>
-      </main>
+        <Board squares={this.state.squares} message={this.state.message} selectedSquare={this.state.selectedSquare} lastMove={this.state.history.lastMove()} onClick={(index) => this.handleClick(index) }/>
+    </main>
     );
   }
 }
