@@ -203,7 +203,9 @@ export default class Game extends React.Component {
     let enemySquares = this.pieces(squares, player.color === 'white' ? 'black' : 'white');
 
     return enemySquares.some((enemySquare) => {
-      return enemySquare.piece?.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)
+      return enemySquare.piece.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)
+    });
+  }
     });
   }
 
