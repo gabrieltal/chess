@@ -199,13 +199,7 @@ export default class Game extends React.Component {
   }
 
   check(squares, player) {
-    let lastMove = this.state.history.lastMove();
     let kingSquare = squares.find((square) => square.piece?.name === `${player.color} king`);
-
-    if (!lastMove) {
-      return false;
-    }
-
     let enemySquares = this.pieces(player.color === 'white' ? 'black' : 'white');
 
     return enemySquares.some((enemySquare) => {
