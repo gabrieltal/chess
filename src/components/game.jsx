@@ -214,18 +214,26 @@ export default class Game extends React.Component {
   }
 
   checkmate(squares, player) {
-    let teammateSquares = this.pieces(squares, player.color);
+    let teammates = this.pieces(squares, player.color);
 
-    // Check if any of teammates can make a move that gets the player out of check
-    // If there are no moves available then it is checkmate.
-    return !teammateSquares.some((teammate) => {
-      let availableMoves = teammate.piece.possibleMoves(squares, teammate.index);
-      // This will return true if there is a move that gets the user out of check,
-      // otherwise it will return false if there is no move available
-      return availableMoves.some((move) => {
-        return !this.check(this.previewMove(teammate, squares[move], squares), player);
-      });
-    });
+    // Cycle through the teammates...
+    for (let x = 0; x < teammates.length; x++) {
+      let teammate = teammates[x];
+      let possibleMoves = teammate.piece.possibleMoves(squares, teammate.index);
+
+      // Go through each teammate's possible moves...
+      for (let y = 0; y < possibleMoves.length; y++) {
+        let availableMove = possibleMoves[y];
+
+        // If any move gets the King out of check then return false, no checkmate
+        if (!this.check(this.previewMove(teammate, squares[availableMove]), player)) {
+          return false;
+        }
+      }
+    }
+
+    // Otherwise return true. No possible moves left.
+    return true;
   }
 
   render() {
