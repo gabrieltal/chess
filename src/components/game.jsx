@@ -129,12 +129,12 @@ export default class Game extends React.Component {
 
     // If user has already selected a piece...
     if (selectedSquare) {
-      // Make move if piece is already selected and valid move
-      if (this.validateMove(selectedSquare, squareClicked)) {
-        return this.movePiece(selectedSquare, squareClicked);
       // If the selected square has a piece that is on the same team as the user then mark that new piece as selected
-      } else if (this.validateSelectedSquare(squareClicked)) {
+      if (this.validateSelectedSquare(squareClicked)) {
         return this.selectSquare(squareClicked);
+      // Make move if piece is already selected and valid move
+      } else if (this.validateMove(selectedSquare, squareClicked)) {
+        return this.movePiece(selectedSquare, squareClicked);
       // Move was invalid otherwise
       } else {
         return this.setState(oldState => ({
