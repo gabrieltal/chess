@@ -113,8 +113,8 @@ export default class Game extends React.Component {
     );
   }
 
-  previewMove(selectedSquare, destinationSquare) {
-    const squares = cloneDeep(this.state.squares);
+  previewMove(selectedSquare, destinationSquare, initSquares = this.state.squares) {
+    const squares = cloneDeep(initSquares);
     squares[destinationSquare.index].piece = selectedSquare.piece;
     squares[selectedSquare.index].piece = null;
 
