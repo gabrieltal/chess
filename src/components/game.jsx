@@ -85,8 +85,8 @@ export default class Game extends React.Component {
     return squares;
   }
 
-  pieces(color = null) {
-    return this.state.squares.filter(
+  pieces(squares, color = null) {
+    return squares.filter(
       (square) => {
         if (color) {
           return square.piece?.color === color;
@@ -200,7 +200,7 @@ export default class Game extends React.Component {
 
   check(squares, player) {
     let kingSquare = squares.find((square) => square.piece?.name === `${player.color} king`);
-    let enemySquares = this.pieces(player.color === 'white' ? 'black' : 'white');
+    let enemySquares = this.pieces(squares, player.color === 'white' ? 'black' : 'white');
 
     return enemySquares.some((enemySquare) => {
       return enemySquare.piece?.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)
