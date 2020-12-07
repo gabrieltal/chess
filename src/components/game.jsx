@@ -76,7 +76,7 @@ export default class Game extends React.Component {
     squares[48] = new Square(48, 6, 0, new Pawn('white'));
     squares[49] = new Square(49, 6, 1, new Pawn('white'));
     squares[50] = new Square(50, 6, 2, new Pawn('white'));
-    squares[51] = new Square(56, 6, 3, new Pawn('white'));
+    squares[51] = new Square(51, 6, 3, new Pawn('white'));
     squares[52] = new Square(52, 6, 4, new Pawn('white'));
     squares[53] = new Square(53, 6, 5, new Pawn('white'));
     squares[54] = new Square(54, 6, 6, new Pawn('white'));
