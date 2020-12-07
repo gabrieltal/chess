@@ -10,6 +10,7 @@ import Pawn from '../models/pawn';
 import History from '../models/history';
 import Player from '../models/player';
 import Square from '../models/square';
+import cloneDeep from 'lodash/cloneDeep';
 
 export default class Game extends React.Component {
   constructor(props) {
@@ -112,8 +113,7 @@ export default class Game extends React.Component {
   }
 
   previewMove(selectedSquare, destinationSquare) {
-    let squares = JSON.parse(JSON.stringify(this.state.squares));
-
+    const squares = cloneDeep(this.state.squares);
     squares[destinationSquare.index].piece = selectedSquare.piece;
     squares[selectedSquare.index].piece = null;
 
