@@ -7,7 +7,8 @@ export default class History {
     description['notation'] = this.translateToChessNotation(
       description['piece'],
       description['move_to'],
-      description['inCheck']
+      description['check'],
+      description['checkmate']
     );
     this.moves.push(description);
     return description;
@@ -17,8 +18,8 @@ export default class History {
     return this.moves[this.moves.length - 1];
   }
 
-  translateToChessNotation(piece, movedTo, inCheck) {
-    let x, y;
+  translateToChessNotation(piece, movedTo, check, checkmate) {
+    let x, y, suffix;
     const PIECE_DICTIONARY = {
       Pawn: '',
       King: 'K',
@@ -64,6 +65,14 @@ export default class History {
       y = '1';
     }
 
-    return `${PIECE_DICTIONARY[piece.constructor.name]}${x}${y}${inCheck ? '+' : ''}`;
+    if (checkmate) {
+      suffix = '#';
+    } else if (check) {
+      suffix = '+';
+    } else {
+      suffix = '';
+    }
+
+    return `${PIECE_DICTIONARY[piece.constructor.name]}${x}${y}${suffix}`;
   }
 }

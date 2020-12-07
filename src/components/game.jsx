@@ -27,7 +27,8 @@ export default class Game extends React.Component {
       whiteGraveyard: [],
       blackGraveyard: [],
       history: new History(),
-      check: false
+      check: false,
+      checkmate: false
     };
   }
 
@@ -174,10 +175,14 @@ export default class Game extends React.Component {
 
     // Setting up for the next player's turn
     let nextPlayer = current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
-    let inCheck = this.check(squares, nextPlayer);
+    let check = this.check(squares, nextPlayer);
+    let checkmate = false;
+    if (check) {
+      checkmate = this.checkmate(squares, nextPlayer);
+    }
 
     // Updating game record
-    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, inCheck: inCheck });
+    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate });
 
     this.setState(oldState => ({
       squares: squares,
@@ -187,7 +192,8 @@ export default class Game extends React.Component {
       history: history,
       blackGraveyard: blackGraveyard,
       whiteGraveyard: whiteGraveyard,
-      check: inCheck
+      check: check,
+      checkmate: checkmate
     }));
   }
 
@@ -206,6 +212,19 @@ export default class Game extends React.Component {
       return enemySquare.piece.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)
     });
   }
+
+  checkmate(squares, player) {
+    let teammateSquares = this.pieces(squares, player.color);
+
+    // Check if any of teammates can make a move that gets the player out of check
+    // If there are no moves available then it is checkmate.
+    return !teammateSquares.some((teammate) => {
+      let availableMoves = teammate.piece.possibleMoves(squares, teammate.index);
+      // This will return true if there is a move that gets the user out of check,
+      // otherwise it will return false if there is no move available
+      return availableMoves.some((move) => {
+        return !this.check(this.previewMove(teammate, squares[move], squares), player);
+      });
     });
   }
 
