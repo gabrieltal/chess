@@ -153,12 +153,15 @@ export default class Game extends React.Component {
     let squares = this.state.squares;
     let blackGraveyard = this.state.blackGraveyard;
     let whiteGraveyard = this.state.whiteGraveyard;
+    let capture = false;
 
     // Add pieces to the graveyard that have been killed
     if (destinationSquare.piece?.color === 'white') {
       whiteGraveyard.push(destinationSquare.piece);
+      capture = true;
     } else if (destinationSquare.piece?.color === 'black') {
       blackGraveyard.push(destinationSquare.piece);
+      capture = true;
     }
 
     // Physically move the piece
@@ -181,7 +184,7 @@ export default class Game extends React.Component {
     }
 
     // Updating game record
-    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate });
+    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture });
 
     this.setState(oldState => ({
       squares: squares,
