@@ -11,7 +11,11 @@ export default class Board extends React.Component {
       cssClasses += ' border-blue';
     }
 
-    return <Square key={square.index} piece={square.piece} cssClasses={cssClasses} onClick={() => this.props.onClick(square)} />;
+    if (this.props.checkmate) {
+      return <Square key={square.index} piece={square.piece} cssClasses={cssClasses} />;
+    } else {
+      return <Square key={square.index} piece={square.piece} cssClasses={cssClasses} onClick={() => this.props.onClick(square)} />;
+    }
   }
 
   render() {

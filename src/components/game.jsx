@@ -86,16 +86,16 @@ export default class Game extends React.Component {
     return squares;
   }
 
-  pieces(squares, color = null) {
-    return squares.filter(
-      (square) => {
-        if (color) {
-          return square.piece?.color === color;
-        } else {
-          return square.piece !== null;
-        }
+  pieces(squares, color) {
+    const pieces = [];
+
+    for (let i = 0; i < squares.length; i++) {
+      if (squares[i].piece && squares[i].piece.color === color) {
+        pieces.push(squares[i]);
       }
-    );
+    }
+
+    return pieces;
   }
 
   setPlayers() {
@@ -114,7 +114,7 @@ export default class Game extends React.Component {
   }
 
   previewMove(selectedSquare, destinationSquare, initSquares = this.state.squares) {
-    const squares = cloneDeep(initSquares);
+    let squares = cloneDeep(initSquares);
     squares[destinationSquare.index].piece = selectedSquare.piece;
     squares[selectedSquare.index].piece = null;
 
@@ -128,23 +128,17 @@ export default class Game extends React.Component {
   handleClick(squareClicked) {
     let selectedSquare = this.state.selectedSquare;
 
-    // If user has already selected a piece...
-    if (selectedSquare) {
-      // If the selected square has a piece that is on the same team as the user then mark that new piece as selected
-      if (this.validateSelectedSquare(squareClicked)) {
-        return this.selectSquare(squareClicked);
-      // Make move if piece is already selected and valid move
-      } else if (this.validateMove(selectedSquare, squareClicked)) {
-        return this.movePiece(selectedSquare, squareClicked);
-      // Move was invalid otherwise
-      } else {
-        return this.setState(oldState => ({
-          message: 'You cannot move there.'
-        }));
-      }
-    // Else if user hasn't selected a piece yet, check if user is allowed to select the square
-    } else if (this.validateSelectedSquare(squareClicked)) {
+    // If user clicked on a square with a piece that belongs to them, mark it selected
+    if (this.validateSelectedSquare(squareClicked)) {
       return this.selectSquare(squareClicked);
+    // Make move if piece is already selected and valid move
+    } else if (selectedSquare && this.validateMove(selectedSquare, squareClicked)) {
+      return this.movePiece(selectedSquare, squareClicked);
+    // If piece was selected then the move was invalid
+    } else if (selectedSquare) {
+      return this.setState(oldState => ({
+        message: 'You cannot move there.'
+      }));
     // Else user wasn't allowed to click the square
     } else {
       return this.setState(oldState => ({
@@ -180,6 +174,11 @@ export default class Game extends React.Component {
     if (check) {
       checkmate = this.checkmate(squares, nextPlayer);
     }
+    let message = `${nextPlayer.color}'s turn. Please select a piece to move.`;
+
+    if (checkmate) {
+      message = `Checkmate! Congrats to ${current.color}. You won!`
+    }
 
     // Updating game record
     history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate });
@@ -187,7 +186,7 @@ export default class Game extends React.Component {
     this.setState(oldState => ({
       squares: squares,
       current: nextPlayer,
-      message: `${nextPlayer.color}'s turn. Please select a piece to move.`,
+      message: message,
       selectedSquare: null,
       history: history,
       blackGraveyard: blackGraveyard,
@@ -235,7 +234,7 @@ export default class Game extends React.Component {
         let availableMove = possibleMoves[y];
 
         // If any move gets the King out of check then return false, no checkmate
-        if (!this.check(this.previewMove(teammate, squares[availableMove]), player)) {
+        if (!this.check(this.previewMove(teammate, squares[availableMove], squares), player)) {
           return false;
         }
       }
@@ -249,8 +248,8 @@ export default class Game extends React.Component {
     return (
       <main className="container vw-100 vh-100">
         <Scoreboard players={this.state.players} current={this.state.current} moves={this.state.history.moves} whiteGraveyard={this.state.whiteGraveyard} blackGraveyard={this.state.blackGraveyard} />
-        <Board squares={this.state.squares} message={this.state.message} selectedSquare={this.state.selectedSquare} lastMove={this.state.history.lastMove()} onClick={(index) => this.handleClick(index) }/>
-    </main>
+        <Board squares={this.state.squares} checkmate={this.state.checkmate} message={this.state.message} selectedSquare={this.state.selectedSquare} lastMove={this.state.history.lastMove()} onClick={(index) => this.handleClick(index) }/>
+      </main>
     );
   }
 }
