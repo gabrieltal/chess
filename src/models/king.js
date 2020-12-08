@@ -18,7 +18,7 @@ export default class King extends Piece {
 
       // Check directly up left diagonal move
       possibleMove = currentPosition - 9;
-      if (!this.atLeftBorder(currentPosition) && !this.teamPieceAtSquare(squares, possibleMove) {
+      if (!this.atLeftBorder(currentPosition) && !this.teamPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
       }
 
