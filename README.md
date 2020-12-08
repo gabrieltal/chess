@@ -1,6 +1,6 @@
 # Chess
 
-This is a work in progress. Game not finished yet!
+This is a work in progress. Game not finished yet! Needs castling logic, en passant logic, tests and to deploy it so people can play it.
 
 I wanted to practice using React. Used the React docs [Tic-Tac-Toe](https://reactjs.org/tutorial/tutorial.html) tutorial as a baseline/example for me to follow, but obviously went from there to make a chess game. Initialized this project using [Create React App](https://github.com/facebook/create-react-app).
 
