@@ -24,7 +24,7 @@ export default class History {
       Knight: 'N',
       Rook: 'R'
     };
-    let piece, capture, x, y, suffix;
+    let piece, capture, x, y, promotion, suffix;
 
     piece = PIECE_DICTIONARY[moveDescription.piece.constructor.name];
     x = this.getColumn(moveDescription.move_to);
@@ -47,7 +47,13 @@ export default class History {
       capture = '';
     }
 
-    return `${piece}${capture}${x}${y}${suffix}`;
+    if (moveDescription.promotion) {
+      promotion = '=Q'
+    } else {
+      promotion = '';
+    }
+
+    return `${piece}${capture}${x}${y}${promotion}${suffix}`;
   }
 
   getColumn(index) {

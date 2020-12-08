@@ -154,6 +154,7 @@ export default class Game extends React.Component {
     let blackGraveyard = this.state.blackGraveyard;
     let whiteGraveyard = this.state.whiteGraveyard;
     let capture = false;
+    let promotion = false;
 
     // Add pieces to the graveyard that have been killed
     if (destinationSquare.piece?.color === 'white') {
@@ -170,6 +171,11 @@ export default class Game extends React.Component {
     // Mark piece as having moved
     destinationSquare.piece.hasMoved = true;
 
+    if (this.promotion(destinationSquare)) {
+      promotion = true;
+      destinationSquare.piece = new Queen(current.color);
+    }
+
     // Setting up for the next player's turn
     let nextPlayer = current.color === 'white' ? this.state.players['black'] : this.state.players['white'];
     let check = this.check(squares, nextPlayer);
@@ -184,7 +190,7 @@ export default class Game extends React.Component {
     }
 
     // Updating game record
-    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture });
+    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture, promotion: promotion });
 
     this.setState(oldState => ({
       squares: squares,
@@ -245,6 +251,20 @@ export default class Game extends React.Component {
 
     // Otherwise return true. No possible moves left.
     return true;
+  }
+
+  promotion(square) {
+    if (square.piece.color === 'black') {
+      if (square.row === 7) {
+        return true;
+      }
+    } else {
+      if (square.row === 0) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   render() {
