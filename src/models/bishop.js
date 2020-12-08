@@ -5,7 +5,7 @@ export default class Bishop extends Piece {
     super(color, 'bishop');
   }
 
-  possibleMoves(squares, currentPosition) {
+  possibleMoves(squares, currentPosition, options) {
     const possibilities = [];
     let possibleMove;
 

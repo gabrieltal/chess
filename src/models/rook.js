@@ -5,7 +5,7 @@ export default class Rook extends Piece {
     super(color, 'rook')
   }
 
-  possibleMoves(squares, currentPosition) {
+  possibleMoves(squares, currentPosition, options) {
     const possibilities = [];
     let possibleMove;
 

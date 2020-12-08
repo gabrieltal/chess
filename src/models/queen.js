@@ -5,7 +5,7 @@ export default class Queen extends Piece {
     super(color, 'queen');
   }
 
-  possibleMoves(squares, currentPosition) {
+  possibleMoves(squares, currentPosition, options) {
     const possibilities = [];
     let step = 1;
     let indexAtPosition;

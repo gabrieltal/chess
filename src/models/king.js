@@ -5,7 +5,7 @@ export default class King extends Piece {
     super(color, 'king');
   }
 
-  possibleMoves(squares, currentPosition) {
+  possibleMoves(squares, currentPosition, options) {
     const possibilities = [];
     let possibleMove;
 
