@@ -107,7 +107,7 @@ export default class Game extends React.Component {
 
   validateMove(selectedSquare, destinationSquare) {
     return (
-      selectedSquare.possibleMoves(this.state.squares, selectedSquare.index).includes(destinationSquare.index)
+      selectedSquare.possibleMoves(this.state.squares, { lastMove: this.state.history.lastMove() }).includes(destinationSquare.index)
       // Make sure the move doesn't put themself in check
       && !this.check(this.previewMove(selectedSquare, destinationSquare), this.state.current)
     );
@@ -221,7 +221,7 @@ export default class Game extends React.Component {
       let enemySquare = enemySquares[idx];
 
       // If any of the enemy pieces has a possible move that includes the king square, return true, check
-      if (enemySquare.piece.possibleMoves(squares, enemySquare.index).includes(kingSquare.index)) {
+      if (enemySquare.possibleMoves(squares).includes(kingSquare.index)) {
         return true;
       }
     }
@@ -236,7 +236,7 @@ export default class Game extends React.Component {
     // Cycle through the teammates...
     for (let x = 0; x < teammates.length; x++) {
       let teammate = teammates[x];
-      let possibleMoves = teammate.piece.possibleMoves(squares, teammate.index);
+      let possibleMoves = teammate.possibleMoves(squares);
 
       // Go through each teammate's possible moves...
       for (let y = 0; y < possibleMoves.length; y++) {
