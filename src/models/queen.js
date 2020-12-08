@@ -126,6 +126,7 @@ export default class Queen extends Piece {
         indexAtPosition = currentPosition - step;
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
+          canMoveLeft = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           canMoveLeft = false;
         } else if (indexAtPosition % 8 === 0) {
@@ -140,6 +141,7 @@ export default class Queen extends Piece {
         indexAtPosition = currentPosition + step;
         if (this.enemyPieceAtSquare(squares, indexAtPosition)) {
           possibilities.push(indexAtPosition);
+          canMoveRight = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           canMoveRight = false;
         } else if ((indexAtPosition + 1) % 8 === 0) {

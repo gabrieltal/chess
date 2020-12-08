@@ -18,6 +18,22 @@ export default class Piece {
     return squares[index] && squares[index].piece && squares[index].piece.color !== this.color;
   }
 
+  atLeftBorder(position) {
+    return position % 8 === 0;
+  }
+
+  atRightBorder(position) {
+    return (position + 1) % 8 === 0;
+  }
+
+  atTopBorder(position) {
+    return position < 7;
+  }
+
+  atBottomBorder(position) {
+    return position > 55;
+  }
+
   // availableMoves(currentPosition) {
   //   return this.upMoves(currentPosition).concat(
   //     this.downMoves(currentPosition),

@@ -69,10 +69,6 @@ export default class Knight extends Piece {
     return possibilities;
   }
 
-  makeMove(index) {
-    this.hasMoved = true;
-  }
-
   canMoveUp(currentPosition, spaces = 1) {
     if (spaces === 2) {
       return currentPosition > 15;
@@ -83,7 +79,7 @@ export default class Knight extends Piece {
 
   canMoveLeft(currentPosition, spaces = 1) {
     if (spaces === 2) {
-      return (currentPosition - 1) % 8 !== 0 || currentPosition % 8 !== 0;
+      return (currentPosition - 1) % 8 !== 0 && currentPosition % 8 !== 0;
     } else {
       return currentPosition % 8 !== 0;
     }

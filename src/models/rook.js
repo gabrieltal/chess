@@ -14,6 +14,7 @@ export default class Rook extends Piece {
     while(possibleMove > 0) {
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
+        break;
       } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
@@ -27,6 +28,7 @@ export default class Rook extends Piece {
     while(possibleMove < 64) {
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
+        break;
       } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
@@ -41,6 +43,7 @@ export default class Rook extends Piece {
       possibleMove -= 1;
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
+        break;
       } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {
@@ -54,6 +57,7 @@ export default class Rook extends Piece {
       possibleMove += 1;
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
+        break;
       } else if (this.pieceAtSquare(squares, possibleMove)) {
         break;
       } else {

@@ -70,20 +70,4 @@ export default class Bishop extends Piece {
 
     return possibilities;
   }
-
-  atLeftBorder(position) {
-    return position % 8 === 0;
-  }
-
-  atRightBorder(position) {
-    return (position + 1) % 8 === 0;
-  }
-
-  atTopBorder(position) {
-    return position < 7;
-  }
-
-  atBottomBorder(position) {
-    return position > 55;
-  }
 }
