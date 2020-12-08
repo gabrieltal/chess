@@ -24,7 +24,16 @@ export default class History {
       Knight: 'N',
       Rook: 'R'
     };
-    let piece, capture, x, y, promotion, suffix;
+    let piece, capture, x, y, promotion, suffix, castle;
+
+    if (moveDescription.castle) {
+      if (moveDescription.move_to > moveDescription.move_from) {
+        return '0-0';
+      } else {
+        return '0-0-0';
+      }
+    }
+
 
     piece = PIECE_DICTIONARY[moveDescription.piece.constructor.name];
     x = this.getColumn(moveDescription.move_to);

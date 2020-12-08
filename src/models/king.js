@@ -61,8 +61,6 @@ export default class King extends Piece {
       }
     }
 
-    // TODO: Add castling logic
-
     return possibilities;
   }
 }

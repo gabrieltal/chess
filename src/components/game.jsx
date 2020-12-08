@@ -134,6 +134,9 @@ export default class Game extends React.Component {
     // Make move if piece is already selected and valid move
     } else if (selectedSquare && this.validateMove(selectedSquare, squareClicked)) {
       return this.movePiece(selectedSquare, squareClicked);
+    // Check if user was trying to castle if a piece was selected already
+    } else if (selectedSquare && this.canCastle(selectedSquare, squareClicked)) {
+      return this.movePiece(selectedSquare, squareClicked, { castle: true });
     // If piece was selected then the move was invalid
     } else if (selectedSquare) {
       return this.setState(oldState => ({
@@ -147,7 +150,7 @@ export default class Game extends React.Component {
     }
   }
 
-  movePiece(selectedSquare, destinationSquare) {
+  movePiece(selectedSquare, destinationSquare, options = {}) {
     let history = this.state.history;
     let current = this.state.current;
     let squares = this.state.squares;
@@ -163,6 +166,19 @@ export default class Game extends React.Component {
     } else if (destinationSquare.piece?.color === 'black') {
       blackGraveyard.push(destinationSquare.piece);
       capture = true;
+    }
+
+    // Castling logic to move the Rook into position, if we are indeed castling here
+    if (options.castle) {
+      let rookSquare = this.getCastlingRook(selectedSquare, destinationSquare);
+
+      if (selectedSquare.index > destinationSquare.index) {
+        squares[destinationSquare.index + 1].piece = rookSquare.piece;
+        rookSquare.piece = null;
+      } else {
+        squares[destinationSquare.index - 1].piece = rookSquare.piece;
+        rookSquare.piece = null;
+      }
     }
 
     // Physically move the piece
@@ -190,7 +206,7 @@ export default class Game extends React.Component {
     }
 
     // Updating game record
-    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture, promotion: promotion });
+    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture, promotion: promotion, castle: options.castle });
 
     this.setState(oldState => ({
       squares: squares,
@@ -265,6 +281,100 @@ export default class Game extends React.Component {
     }
 
     return false;
+  }
+
+  canCastle(selectedSquare, destinationSquare) {
+    // Selected piece must be a king
+    if (selectedSquare.piece.constructor.name !== 'King') {
+      return false;
+    }
+
+    // King must not have moved yet
+    if (selectedSquare.piece.hasMoved) {
+      return false;
+    }
+
+    // There are only two ways to castle, king or queen side, hardcoded the allowed spaces to castle
+    if (selectedSquare.piece.color === 'black') {
+      if (![2, 6].includes(destinationSquare.index)) {
+        return false;
+      }
+    } else {
+      if (![58, 62].includes(destinationSquare.index)) {
+        return false;
+      }
+    }
+
+    // Current player must not be in check
+    if (this.check(this.state.squares, this.state.current)) {
+      return false;
+    }
+
+    // Rook must not have been moved yet
+    let rookSquare = this.getCastlingRook(selectedSquare, destinationSquare);
+    if (rookSquare.piece.hasMoved) {
+      return false;
+    }
+
+    // Squares between the king and the rook must be empty
+    let squaresBetweenKingAndRook = this.squaresBetweenLocations(selectedSquare, rookSquare);
+    for (let i = 0; i < squaresBetweenKingAndRook.length; i++) {
+      if (squaresBetweenKingAndRook[i].piece) {
+        return false;
+      }
+    }
+
+    let squaresBetweenKingAndDestination = this.squaresBetweenLocations(selectedSquare, destinationSquare);
+    let enemySquares = this.pieces(this.state.squares, this.state.current.color === 'white' ? 'black' : 'white');
+    for (let i = 0; i < enemySquares.length; i++) {
+      let possibleMoves = enemySquares[i].possibleMoves(this.state.squares);
+
+      // Make sure no enemy pieces threaten the spaces that the king will move over
+      for (let j = 0; j < squaresBetweenKingAndDestination.length; j++) {
+        if (possibleMoves.includes(squaresBetweenKingAndDestination[j])) {
+          return false;
+        }
+      }
+
+      // Make sure the destination square isn't threatened by any of the enemy pieces
+      if (possibleMoves.includes(destinationSquare.index)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  getCastlingRook(kingSquare, castlingSquare, squares = this.state.squares) {
+    if (castlingSquare.index > kingSquare.index) {
+      if (kingSquare.piece.color === 'black') {
+        return squares[7];
+      } else {
+        return squares[63];
+      }
+    } else {
+      if (kingSquare.piece.color === 'black') {
+        return squares[0];
+      } else {
+        return squares[56];
+      }
+    }
+  }
+
+  squaresBetweenLocations(square1, square2) {
+    const squaresBetween = [];
+
+    if (square1.index > square2.index) {
+      for (let i = square2.index + 1; i < square1.index; i++) {
+        squaresBetween.push(this.state.squares[i]);
+      }
+    } else {
+      for (let i = square1.index + 1; i < square2.index; i++) {
+        squaresBetween.push(this.state.squares[i]);
+      }
+    }
+
+    return squaresBetween;
   }
 
   render() {
