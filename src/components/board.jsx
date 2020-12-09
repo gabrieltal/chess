@@ -31,10 +31,17 @@ export default class Board extends React.Component {
       displayedBoard.push(<div className="row" key={x}>{boardRow}</div>);
     }
 
+    let restart;
+
+    if (this.props.checkmate) {
+      restart = <a href="/">Play again?</a>;
+    }
+
     return (
       <div className="board my-2">
         {displayedBoard}
         <p>{this.props.message}</p>
+        {restart}
       </div>
     );
   }
