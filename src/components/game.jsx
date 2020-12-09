@@ -307,7 +307,7 @@ export default class Game extends React.Component {
     let lastMove = this.state.history.lastMove();
 
     // Selected piece must be a pawn
-    if (selectedSquare.piece.constructor.name !== 'Pawn') {
+    if (selectedSquare.piece.className !== 'Pawn') {
       return false;
     }
 
@@ -346,7 +346,7 @@ export default class Game extends React.Component {
 
   canCastle(selectedSquare, destinationSquare) {
     // Selected piece must be a king
-    if (selectedSquare.piece.constructor.name !== 'King') {
+    if (selectedSquare.piece.className !== 'King') {
       return false;
     }
 

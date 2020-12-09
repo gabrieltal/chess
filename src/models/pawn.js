@@ -3,6 +3,7 @@ import Piece from './piece';
 export default class Pawn extends Piece {
   constructor(color) {
     super(color, 'pawn');
+    this.className = 'Pawn';
   }
 
   possibleMoves(squares, currentPosition, options) {

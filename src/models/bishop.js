@@ -3,6 +3,7 @@ import Piece from './piece';
 export default class Bishop extends Piece {
   constructor(color) {
     super(color, 'bishop');
+    this.className = 'Bishop';
   }
 
   possibleMoves(squares, currentPosition, options) {

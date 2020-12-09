@@ -3,6 +3,7 @@ import Piece from './piece'
 export default class Rook extends Piece {
   constructor(color, position) {
     super(color, 'rook')
+    this.className = 'Rook';
   }
 
   possibleMoves(squares, currentPosition, options) {

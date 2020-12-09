@@ -24,10 +24,7 @@ export default class History {
       Knight: 'N',
       Rook: 'R'
     };
-    console.log(moveDescription.piece);
-    console.log(moveDescription.piece.constructor);
-    console.log(moveDescription.piece.constructor.name);
-    console.log(PIECE_DICTIONARY);
+
     let piece, capture, x, y, promotion, suffix;
 
     if (moveDescription.castle) {
@@ -39,7 +36,7 @@ export default class History {
     }
 
 
-    piece = PIECE_DICTIONARY[moveDescription.piece.constructor.name];
+    piece = PIECE_DICTIONARY[moveDescription.piece.className];
     x = this.getColumn(moveDescription.move_to);
     y = this.getRow(moveDescription.move_to);
 
@@ -51,7 +48,7 @@ export default class History {
       suffix = '';
     }
 
-    if (moveDescription.capture && moveDescription.piece.constructor.name === 'Pawn') {
+    if (moveDescription.capture && moveDescription.piece.className === 'Pawn') {
       capture = this.getColumn(moveDescription.move_from);
       capture += 'x';
     } else if (moveDescription.capture) {
