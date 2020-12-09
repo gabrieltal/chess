@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/a
 ### Deployment
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+## Future Work
+
+* I want to add functionality to look back at each move by clicking on the move history so you can cycle through the entire game you played and look over your moves.
+
+* Add tests, just got a basic MVP functionality going, but I need to add tests.
