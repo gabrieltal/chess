@@ -2,7 +2,7 @@ export default class Piece {
   constructor(color, pieceName) {
     this.color = color;
     this.hasMoved = false;
-    this.image = `/${pieceName}-${color}.png`;
+    this.image = `${process.env.PUBLIC_URL}/${pieceName}-${color}.png`;
     this.name = `${color} ${pieceName}`;
   }
 
