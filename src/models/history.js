@@ -24,6 +24,10 @@ export default class History {
       Knight: 'N',
       Rook: 'R'
     };
+    console.log(moveDescription.piece);
+    console.log(moveDescription.piece.constructor);
+    console.log(moveDescription.piece.constructor.name);
+    console.log(PIECE_DICTIONARY);
     let piece, capture, x, y, promotion, suffix;
 
     if (moveDescription.castle) {
