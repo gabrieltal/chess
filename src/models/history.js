@@ -24,7 +24,7 @@ export default class History {
       Knight: 'N',
       Rook: 'R'
     };
-    let piece, capture, x, y, promotion, suffix, castle;
+    let piece, capture, x, y, promotion, suffix;
 
     if (moveDescription.castle) {
       if (moveDescription.move_to > moveDescription.move_from) {
