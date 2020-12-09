@@ -134,9 +134,12 @@ export default class Game extends React.Component {
     // Make move if piece is already selected and valid move
     } else if (selectedSquare && this.validateMove(selectedSquare, squareClicked)) {
       return this.movePiece(selectedSquare, squareClicked);
-    // Check if user was trying to castle if a piece was selected already
+    // Check if user was trying to castle
     } else if (selectedSquare && this.canCastle(selectedSquare, squareClicked)) {
       return this.movePiece(selectedSquare, squareClicked, { castle: true });
+    // Check if user was trying to en passant
+    } else if (selectedSquare && this.canEnPassant(selectedSquare, squareClicked)) {
+      return this.movePiece(selectedSquare, squareClicked, { enpassant: true });
     // If piece was selected then the move was invalid
     } else if (selectedSquare) {
       return this.setState(oldState => ({
@@ -181,6 +184,22 @@ export default class Game extends React.Component {
       }
     }
 
+    // En passant logic to capture piece is we are indeed doing an en passant move
+    if (options.enpassant) {
+      let enPassantSquare = this.getEnPassantPawn(selectedSquare, destinationSquare);
+
+      // Add pieces to the graveyard that have been killed
+      if (enPassantSquare.piece.color === 'white') {
+        whiteGraveyard.push(enPassantSquare.piece);
+        capture = true;
+      } else if (enPassantSquare.piece.color === 'black') {
+        blackGraveyard.push(enPassantSquare.piece);
+        capture = true;
+      }
+
+      enPassantSquare.piece = null;
+    }
+
     // Physically move the piece
     destinationSquare.piece = selectedSquare.piece;
     selectedSquare.piece = null;
@@ -206,7 +225,7 @@ export default class Game extends React.Component {
     }
 
     // Updating game record
-    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture, promotion: promotion, castle: options.castle });
+    history.logMove({ current: current, piece: destinationSquare.piece, move_to: destinationSquare.index, move_from: selectedSquare.index, check: check, checkmate: checkmate, capture: capture, promotion: promotion, castle: options.castle, enpassant: options.enpassant });
 
     this.setState(oldState => ({
       squares: squares,
@@ -281,6 +300,48 @@ export default class Game extends React.Component {
     }
 
     return false;
+  }
+
+  canEnPassant(selectedSquare, destinationSquare) {
+    let enemyPawnSquare = this.getEnPassantPawn(selectedSquare, destinationSquare);
+    let lastMove = this.state.history.lastMove();
+
+    // Selected piece must be a pawn
+    if (selectedSquare.piece.constructor.name !== 'Pawn') {
+      return false;
+    }
+
+    if (selectedSquare.piece.color === 'black') {
+      // Check if piece is trying to move diagonal
+      if (destinationSquare.index !== selectedSquare.index + 9 && destinationSquare.index !== selectedSquare.index + 7) {
+        return false;
+      }
+    } else {
+      // Check if piece is trying to move diagonal
+      if (destinationSquare.index !== selectedSquare.index - 9 && destinationSquare.index !== selectedSquare.index - 7) {
+        return false;
+      }
+    }
+
+    // Check if piece we're trying to take is an enemy pawn
+    if (enemyPawnSquare.piece?.color !== selectedSquare.piece.color && enemyPawnSquare.piece?.constructor?.name !== 'Pawn') {
+      return false;
+    }
+
+    // Ensure the piece we're trying to take indeed made the last move and it was a double move
+    if (lastMove.piece !== enemyPawnSquare.piece) {
+      return false;
+    }
+    if (lastMove.move_to !== enemyPawnSquare.index) {
+      return false;
+    }
+
+    // Check if the last move was a pawn double move
+    if (Math.abs(lastMove.move_from - lastMove.move_to) !== 16) {
+      return false;
+    }
+
+    return true;
   }
 
   canCastle(selectedSquare, destinationSquare) {
@@ -358,6 +419,14 @@ export default class Game extends React.Component {
       } else {
         return squares[56];
       }
+    }
+  }
+
+  getEnPassantPawn(selectedSquare, destinationSquare, squares = this.state.squares) {
+    if (selectedSquare.piece.color === 'black') {
+      return squares[destinationSquare.index - 8];
+    } else {
+      return squares[destinationSquare.index + 8];
     }
   }
 
