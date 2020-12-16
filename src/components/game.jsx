@@ -289,6 +289,10 @@ export default class Game extends React.Component {
   }
 
   promotion(square) {
+    if (square.piece.className !== 'Pawn') {
+      return false;
+    }
+
     if (square.piece.color === 'black') {
       if (square.row === 7) {
         return true;
