@@ -2,6 +2,8 @@
 
 [Play!](https://gabrieltal.github.io/chess/)
 
+Pardon any bugs you run into. Still working through some of them. I need to add tests to squash them out. If you run into a bug feel free to make an issue on Github describing it, even giving me the move list would be great and I'll get around to resolving it.
+
 I wanted to practice using React. Used the React docs [Tic-Tac-Toe](https://reactjs.org/tutorial/tutorial.html) tutorial as a baseline/example for me to follow, but obviously went from there to make a chess game. Initialized this project using [Create React App](https://github.com/facebook/create-react-app).
 
 ## Set Up
