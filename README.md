@@ -45,15 +45,11 @@ yarn test
 
 ### Deployment
 
-To build the app for production:
+To deploy the application to production:
 
 ```bash
-yarn build
+yarn deploy
 ```
-
-Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes. App is ready to be deployed!
 
 ## TODOs
 
