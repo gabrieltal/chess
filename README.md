@@ -37,7 +37,7 @@ The page will reload if you make edits. You will also see any lint errors in the
 
 ### Tests
 
-To run the test suite run:
+To run the test suite:
 
 ```bash
 yarn test
@@ -45,7 +45,7 @@ yarn test
 
 ### Deployment
 
-To build the app for production run:
+To build the app for production:
 
 ```bash
 yarn build
