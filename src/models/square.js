@@ -1,6 +1,6 @@
 export default class Square {
-  constructor(index, row, column, piece = null) {
-    this.index = index;
+  constructor(row, column, piece = null) {
+    this.index = (row * 8) + column;
     this.row = row;
     this.column = column;
     this.piece = piece;
