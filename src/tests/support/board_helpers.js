@@ -6,8 +6,12 @@ import King from '../../models/king';
 import Queen from '../../models/queen';
 import Pawn from '../../models/pawn';
 
+export const blankBoard = () => {
+  return Array(64).fill(null);
+};
+
 export const defaultBoard = () => {
-  const squares = Array(64).fill(null);
+  const squares = blankBoard();
 
   // Black pieces
   squares[0] = new Square(0, 0, new Rook('black'));
