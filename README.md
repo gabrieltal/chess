@@ -2,7 +2,7 @@
 
 ## Overview
 
-A full blown chess game made with React and JavaScript. Currently you can only play against yourself.
+A fully functional chess game made with React and JavaScript. Currently you can only play against yourself.
 I built it using the React docs [Tic-Tac-Toe](https://reactjs.org/tutorial/tutorial.html) tutorial as a baseline
 just to get started, but took it from the initial set up to make a chess game.
 
