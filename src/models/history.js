@@ -35,7 +35,6 @@ export default class History {
       }
     }
 
-
     piece = PIECE_DICTIONARY[moveDescription.piece.className];
     x = this.getColumn(moveDescription.move_to);
     y = this.getRow(moveDescription.move_to);
