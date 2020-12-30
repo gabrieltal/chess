@@ -37,8 +37,6 @@ export default class Pawn extends Piece {
       possibilities.push(possibleMove);
     }
 
-    // TODO: Need to figure out en passant logic here
-
     return possibilities;
   }
 }
