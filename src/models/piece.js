@@ -11,11 +11,11 @@ export default class Piece {
   }
 
   teamPieceAtSquare(squares, index) {
-    return squares[index].piece && squares[index].piece.color === this.color;
+    return this.pieceAtSquare(squares, index) && squares[index].piece.color === this.color;
   }
 
   enemyPieceAtSquare(squares, index) {
-    return squares[index] && squares[index].piece && squares[index].piece.color !== this.color;
+    return this.pieceAtSquare(squares, index) && squares[index].piece.color !== this.color;
   }
 
   atLeftBorder(position) {
