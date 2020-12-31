@@ -1,6 +1,6 @@
 import Piece from '../models/piece';
 import Square from '../models/square';
-import { blankBoard } from './support/board_helpers';
+import BoardHelper from './support/board_helpers';
 
 test('#atLeftBorder', () => {
   // Arrange
@@ -62,7 +62,7 @@ test('#pieceAtSquare', () => {
   // Arrange
   const bishop = new Piece('black', 'bishop');
   const pawn = new Piece('black', 'pawn');
-  const board = blankBoard();
+  const board = BoardHelper.blank();
 
   // Assume
   expect(board[2]).toBeNull();
@@ -80,7 +80,7 @@ test('#teamPieceAtSquare', () => {
   const blackBishop = new Piece('black', 'bishop');
   const whiteBishop = new Piece('white', 'bishop');
   const blackPawn = new Piece('black', 'pawn');
-  const board = blankBoard();
+  const board = BoardHelper.blank();
 
   // Assume
   board[2] = new Square(0, 2, whiteBishop);
@@ -98,7 +98,7 @@ test('#enemyPieceAtSquare', () => {
   const blackBishop = new Piece('black', 'bishop');
   const whiteBishop = new Piece('white', 'bishop');
   const blackPawn = new Piece('black', 'pawn');
-  const board = blankBoard();
+  const board = BoardHelper.blank();
 
   // Assume
   board[2] = new Square(0, 2, blackBishop);
