@@ -27,7 +27,7 @@ export default class Piece {
   }
 
   atTopBorder(position) {
-    return position < 7;
+    return position < 8;
   }
 
   atBottomBorder(position) {

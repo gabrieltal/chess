@@ -35,7 +35,7 @@ test('#atTopBorder', () => {
   const piece = new Piece('black', 'bishop');
 
   for (let i = 0; i < 64; i++) {
-    if (i < 7) {
+    if (i < 8) {
       // Act && Assert
       expect(piece.atTopBorder(i)).toBeTruthy();
     } else {
