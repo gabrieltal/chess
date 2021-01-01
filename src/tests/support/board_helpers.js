@@ -7,12 +7,12 @@ import Queen from '../../models/queen';
 import Pawn from '../../models/pawn';
 
 export default class BoardHelper {
-  blank() {
+  static blank() {
     return Array(64).fill(null);
   }
 
-  default() {
-    const squares = blankBoard();
+  static default() {
+    const squares = this.blank();
 
     // Black pieces
     squares[0] = new Square(0, 0, new Rook('black'));
@@ -63,5 +63,13 @@ export default class BoardHelper {
     squares[55] = new Square(6, 7, new Pawn('white'));
 
     return squares;
+  }
+
+  getPiece(board, color, piece) {
+    board.find((square) => {
+      if (square.piece && square.piece.className === piece && square.piece.color === color) {
+        return square;
+      }
+    });
   }
 };
