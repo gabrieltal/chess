@@ -6,7 +6,7 @@ export default class Bishop extends Piece {
     this.className = 'Bishop';
   }
 
-  possibleMoves(squares, currentPosition, options) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
 

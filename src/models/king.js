@@ -6,7 +6,7 @@ export default class King extends Piece {
     this.className = 'King';
   }
 
-  possibleMoves(squares, currentPosition, options) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
 

@@ -6,7 +6,7 @@ export default class Rook extends Piece {
     this.className = 'Rook';
   }
 
-  possibleMoves(squares, currentPosition, options) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
 

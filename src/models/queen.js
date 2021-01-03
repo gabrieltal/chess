@@ -6,7 +6,7 @@ export default class Queen extends Piece {
     this.className = 'Queen';
   }
 
-  possibleMoves(squares, currentPosition, options) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let step = 1;
     let indexAtPosition;

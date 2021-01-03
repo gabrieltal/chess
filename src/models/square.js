@@ -15,9 +15,9 @@ export default class Square {
     }
   }
 
-  possibleMoves(squares, options = {}) {
+  possibleMoves(squares) {
     if (this.piece) {
-      return this.piece.possibleMoves(squares, this.index, options);
+      return this.piece.possibleMoves(squares, this.index);
     }
 
     return false;

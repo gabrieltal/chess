@@ -6,7 +6,7 @@ export default class Pawn extends Piece {
     this.className = 'Pawn';
   }
 
-  possibleMoves(squares, currentPosition, options) {
+  possibleMoves(squares, currentPosition) {
     const possibilities = [];
     let possibleMove;
     // White pieces move up the board
