@@ -1,6 +1,6 @@
-import Bishop from '../models/bishop';
-import Square from '../models/square';
-import BoardHelper from './support/board_helpers';
+import Bishop from '../../models/bishop';
+import Square from '../../models/square';
+import BoardHelper from '../support/board_helpers';
 
 // At starting position these are the available moves
 test('Starting Position moves', () => {

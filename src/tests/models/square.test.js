@@ -1,4 +1,4 @@
-import Square from '../models/square';
+import Square from '../../models/square';
 
 test('return bg-dark if row is even && col is even', () => {
   // Arrange

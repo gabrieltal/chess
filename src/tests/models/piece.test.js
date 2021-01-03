@@ -1,6 +1,6 @@
-import Piece from '../models/piece';
-import Square from '../models/square';
-import BoardHelper from './support/board_helpers';
+import Piece from '../../models/piece';
+import Square from '../../models/square';
+import BoardHelper from '../support/board_helpers';
 
 test('#atLeftBorder', () => {
   // Arrange
