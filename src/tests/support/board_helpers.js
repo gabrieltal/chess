@@ -64,12 +64,4 @@ export default class BoardHelper {
 
     return squares;
   }
-
-  getPiece(board, color, piece) {
-    board.find((square) => {
-      if (square.piece && square.piece.className === piece && square.piece.color === color) {
-        return square;
-      }
-    });
-  }
 };
