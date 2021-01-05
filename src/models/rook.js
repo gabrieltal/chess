@@ -12,7 +12,7 @@ export default class Rook extends Piece {
 
     // Move up
     possibleMove = currentPosition - 8;
-    while(possibleMove > 0) {
+    while(possibleMove >= 0) {
       if (this.enemyPieceAtSquare(squares, possibleMove)) {
         possibilities.push(possibleMove);
         break;
