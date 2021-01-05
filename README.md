@@ -4,7 +4,7 @@
 
 A fully functional chess game made with React and JavaScript. Currently you can only play against yourself.
 I built it using the React docs [Tic-Tac-Toe](https://reactjs.org/tutorial/tutorial.html) tutorial as a baseline
-just to get started, but took it from the initial set up to make a chess game.
+just to get started, but took it from the initial setup to make a chess game.
 
 Initialized this project using [Create React App](https://github.com/facebook/create-react-app).
 
@@ -55,4 +55,4 @@ yarn deploy
 
 * I want to add functionality to look back at each move by clicking on the move history so you can cycle through the entire game you played and look over your moves.
 
-* Add tests, just got a basic MVP functionality going, but I need to add tests.
+* Add more tests, only have basic model movement tests set up.
