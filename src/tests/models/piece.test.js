@@ -7,56 +7,69 @@ test('#atLeftBorder', () => {
   const piece = new Piece('black', 'bishop');
 
   for (let i = 0; i < 64; i++) {
-    if (i % 8 === 0) {
-      // Act && Assert
-      expect(piece.atLeftBorder(i)).toBeTruthy();
-    } else {
-      expect(piece.atLeftBorder(i)).toBeFalsy();
-    }
+    expect(piece.atLeftBorder(i)).toBe(isPieceAtLeftBorder(i));
   }
 });
+
+function isPieceAtLeftBorder(i) {
+  if (i % 8 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 test('#atRightBorder', () => {
   // Arrange
   const piece = new Piece('black', 'bishop');
 
   for (let i = 0; i < 64; i++) {
-    if ((i + 1) % 8 === 0) {
-      // Act && Assert
-      expect(piece.atRightBorder(i)).toBeTruthy();
-    } else {
-      expect(piece.atRightBorder(i)).toBeFalsy();
-    }
+    expect(piece.atRightBorder(i)).toBe(isPieceAtRightBorder(i));
   }
 });
+
+function isPieceAtRightBorder(i) {
+  if ((i + 1) % 8 === 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 test('#atTopBorder', () => {
   // Arrange
   const piece = new Piece('black', 'bishop');
 
   for (let i = 0; i < 64; i++) {
-    if (i < 8) {
-      // Act && Assert
-      expect(piece.atTopBorder(i)).toBeTruthy();
-    } else {
-      expect(piece.atTopBorder(i)).toBeFalsy();
-    }
+    expect(piece.atTopBorder(i)).toBe(isPieceAtTopBorder(i));
   }
 });
+
+function isPieceAtTopBorder(i) {
+  if (i < 8) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 test('#atBottomBorder', () => {
   // Arrange
   const piece = new Piece('black', 'bishop');
 
   for (let i = 0; i < 64; i++) {
-    if (i > 55) {
-      // Act && Assert
-      expect(piece.atBottomBorder(i)).toBeTruthy();
-    } else {
-      expect(piece.atBottomBorder(i)).toBeFalsy();
-    }
+    expect(piece.atBottomBorder(i)).toBe(isPieceAtBottomBorder(i));
   }
 });
+
+function isPieceAtBottomBorder(i) {
+  if (i > 55) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 
 test('#pieceAtSquare', () => {
   // Arrange
