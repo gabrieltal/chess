@@ -10,12 +10,12 @@ export default class Queen extends Piece {
     const possibilities = [];
     let step = 1;
     let indexAtPosition;
-    let centerMovePossible = true;
-    let leftMovePossible = true;
-    let rightMovePossible = true;
+    let centerMovePossible = !this.atTopBorder(currentPosition);
+    let leftMovePossible = !this.atLeftBorder(currentPosition);
+    let rightMovePossible = !this.atRightBorder(currentPosition);
 
     // Move up
-    while(this.indexAtCenter(currentPosition, step, 'up') > 0) {
+    while(this.indexAtCenter(currentPosition, step, 'up') >= 0) {
       if (leftMovePossible) {
         indexAtPosition = this.indexAtLeftDiagonal(currentPosition, step, 'up');
 
@@ -24,7 +24,7 @@ export default class Queen extends Piece {
           leftMovePossible = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           leftMovePossible = false;
-        } else if (indexAtPosition % 8 === 0) {
+        } else if (this.atLeftBorder(indexAtPosition)) {
           possibilities.push(indexAtPosition);
           leftMovePossible = false;
         } else {
@@ -40,6 +40,9 @@ export default class Queen extends Piece {
           centerMovePossible = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           centerMovePossible = false;
+        } else if (this.atTopBorder(indexAtPosition)) {
+          possibilities.push(indexAtPosition);
+          centerMovePossible = false;
         } else {
           possibilities.push(indexAtPosition);
         }
@@ -53,7 +56,7 @@ export default class Queen extends Piece {
           rightMovePossible = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           rightMovePossible = false;
-        } else if ((indexAtPosition + 1) % 8 === 0) {
+        } else if (this.atRightBorder(indexAtPosition)) {
           possibilities.push(indexAtPosition);
           rightMovePossible = false;
         } else {
@@ -66,9 +69,10 @@ export default class Queen extends Piece {
 
     // Move down
     step = 1;
-    leftMovePossible = true;
-    rightMovePossible = true;
-    centerMovePossible = true;
+    centerMovePossible = !this.atBottomBorder(currentPosition);
+    leftMovePossible = !this.atLeftBorder(currentPosition);
+    rightMovePossible = !this.atRightBorder(currentPosition);
+
     while(this.indexAtCenter(currentPosition, step, 'down') < 64) {
       if (leftMovePossible) {
         indexAtPosition = this.indexAtLeftDiagonal(currentPosition, step, 'down');
@@ -78,7 +82,7 @@ export default class Queen extends Piece {
           leftMovePossible = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           leftMovePossible = false;
-        } else if (indexAtPosition % 8 === 0) {
+        } else if (this.atLeftBorder(indexAtPosition)) {
           possibilities.push(indexAtPosition);
           leftMovePossible = false;
         } else {
@@ -94,6 +98,9 @@ export default class Queen extends Piece {
           centerMovePossible = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           centerMovePossible = false;
+        } else if (this.atBottomBorder(indexAtPosition)) {
+          possibilities.push(indexAtPosition);
+          centerMovePossible = false;
         } else {
           possibilities.push(indexAtPosition);
         }
@@ -107,7 +114,7 @@ export default class Queen extends Piece {
           rightMovePossible = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           rightMovePossible = false;
-        } else if ((indexAtPosition + 1) % 8 === 0) {
+        } else if (this.atRightBorder(indexAtPosition)) {
           possibilities.push(indexAtPosition);
           rightMovePossible = false;
         } else {
@@ -120,8 +127,8 @@ export default class Queen extends Piece {
 
     // Move horizontal
     step = 1;
-    let canMoveLeft = currentPosition % 8 === 0 ? false : true;
-    let canMoveRight = (currentPosition + 1) % 8 === 0 ? false : true;
+    let canMoveLeft = !this.atLeftBorder(currentPosition);
+    let canMoveRight = !this.atRightBorder(currentPosition);
     while (canMoveLeft || canMoveRight) {
       if (canMoveLeft) {
         indexAtPosition = currentPosition - step;
@@ -130,7 +137,7 @@ export default class Queen extends Piece {
           canMoveLeft = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           canMoveLeft = false;
-        } else if (indexAtPosition % 8 === 0) {
+        } else if (this.atLeftBorder(indexAtPosition)) {
           possibilities.push(indexAtPosition);
           canMoveLeft = false;
         } else {
@@ -145,7 +152,7 @@ export default class Queen extends Piece {
           canMoveRight = false;
         } else if (this.pieceAtSquare(squares, indexAtPosition)) {
           canMoveRight = false;
-        } else if ((indexAtPosition + 1) % 8 === 0) {
+        } else if (this.atRightBorder(indexAtPosition)) {
           possibilities.push(indexAtPosition);
           canMoveRight = false;
         } else {
