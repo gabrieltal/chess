@@ -84,12 +84,24 @@ test('if enemy is blocking a path', () => {
   // Arrange
   const board = BoardHelper.blank();
   board[35] = new Square(4, 3, new Pawn('black'));
-  board[43] = new Square(5, 3, new Pawn('black'));
+  board[43] = new Square(5, 3, new Pawn('white'));
 
   // Assert
   expect(board[35].possibleMoves(board)).toStrictEqual([]);
   expect(board[35].possibleMoves(board)).not.toContain(43);
   expect(board[35].possibleMoves(board)).not.toContain(51);
+});
+
+// Test enemy strikes
+test('if enemy is in striking distance', () => {
+  // Arrange
+  const board = BoardHelper.blank();
+  board[35] = new Square(4, 3, new Pawn('black'));
+  board[42] = new Square(5, 2, new Pawn('white'));
+  board[44] = new Square(5, 4, new Pawn('white'));
+
+  // Assert
+  expect(board[35].possibleMoves(board)).toStrictEqual([43, 51, 42, 44]);
 });
 
 // Special cases
