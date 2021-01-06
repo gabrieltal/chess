@@ -312,14 +312,12 @@ export default class Game extends React.Component {
 
     // Selected piece must be a pawn
     if (selectedSquare.piece.className !== 'Pawn') {
-      console.log('selected piece is not a pawn');
       return false;
     }
 
     // Selected piece must be in the fifth rank per en passant rules
     // https://en.wikipedia.org/wiki/En_passant
     if (!selectedSquare.piece.inFifthRank(selectedSquare.index)) {
-      console.log('selected piece is not in the fifth rank');
       return false;
     }
 
@@ -331,26 +329,27 @@ export default class Game extends React.Component {
     } else {
       // Check if piece is trying to move diagonal
       if (destinationSquare.index !== selectedSquare.index - 9 && destinationSquare.index !== selectedSquare.index - 7) {
-        console.log('destination is not diagonal');
         return false;
       }
     }
 
-    // Check if piece we're trying to take is an enemy pawn
-    if (enemyPawnSquare.piece?.color !== selectedSquare.piece.color && enemyPawnSquare.piece?.constructor?.name !== 'Pawn') {
-      console.log('enemy pawn is on the same team and it isnt a pawn');
+    // Check if piece we're trying to take is an enemy
+    if (enemyPawnSquare.piece?.color === selectedSquare.piece.color) {
+      return false;
+    }
+
+    // Check enemy piece is a pawn
+    if (enemyPawnSquare.piece?.className !== 'Pawn') {
       return false;
     }
 
     // Ensure the piece we're trying to take indeed made the last move and it was a double move
     if (lastMove.move_to !== enemyPawnSquare.index) {
-      console.log('last move is not the same as the enemy pieces current index');
       return false;
     }
 
     // Check if the last move was a pawn double move
     if (Math.abs(lastMove.move_from - lastMove.move_to) !== 16) {
-      console.log('no absolute value');
       return false;
     }
 
