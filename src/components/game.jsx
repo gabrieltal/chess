@@ -315,6 +315,12 @@ export default class Game extends React.Component {
       return false;
     }
 
+    // Selected piece must be in the fifth rank per en passant rules
+    // https://en.wikipedia.org/wiki/En_passant
+    if (!selectedSquare.piece.inFifthRank(selectedSquare.index)) {
+      return false;
+    }
+
     if (selectedSquare.piece.color === 'black') {
       // Check if piece is trying to move diagonal
       if (destinationSquare.index !== selectedSquare.index + 9 && destinationSquare.index !== selectedSquare.index + 7) {
