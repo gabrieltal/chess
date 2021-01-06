@@ -339,9 +339,6 @@ export default class Game extends React.Component {
     }
 
     // Ensure the piece we're trying to take indeed made the last move and it was a double move
-    if (lastMove.piece !== enemyPawnSquare.piece) {
-      return false;
-    }
     if (lastMove.move_to !== enemyPawnSquare.index) {
       return false;
     }
