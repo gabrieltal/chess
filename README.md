@@ -10,6 +10,12 @@ Initialized this project using [Create React App](https://github.com/facebook/cr
 
 [https://gabrieltal.github.io/chess/](https://gabrieltal.github.io/chess/)
 
+## Background
+
+I've been playing chess on [chess.com](https://chess.com) for a while now. I'm not very good, but feel free to [challenge me](https://www.chess.com/member/plant_person) :). I made this in November 2020 after getting laid off. I wanted to brush up on my React and I had chess fresh on my mind after watching Queen's Gambit.
+
+I grew a greater appreciation of the rule of chess while making this. It is a complex game, en passant, castling and the check/checkmate logic were the toughest to crack.
+
 
 ## Installation
 
